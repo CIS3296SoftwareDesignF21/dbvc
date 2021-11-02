@@ -36,3 +36,4 @@ Maria, age 34, is a current grad student studying philosophy. She comes from Bos
 
 # Weekly Reviews
 - [Week 1](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week1.md)
+- [Week 2](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week2.md)
