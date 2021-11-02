@@ -17,6 +17,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Updated Week1.md with my contributions
 ### Chenxuan
 - Created "Hello World" file.
+- Wrote  the user persona "Jack" to represent a owner of the server 
 - Updated Week1.md
 ## Looking Forward: Week 2
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
