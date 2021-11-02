@@ -1,9 +1,11 @@
 # Project Description
-The Discord Bot for Virtual Coven is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members.
+The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members.
 
-# How to Run
+# Installation Instructions
+Clone the existing repository onto your local device. Due to the secret token used for authorization of the Discord bot, the executable Java program to run the bot must be rebuilt on a local machine with the real token in order to activate the bot. In the future, we hope to host the bot online so that this is not necessary in order to demonstrate its execution.
 
-# How to Install
+# Build Instructions
+Download the repository onto your local machine. In Intellij, open the repository Main.java file found in the src folder. Update the String token with the unique token identifier posted in the DBVC Discord channgel. Then, navigate to the "Gradle" tab on the far right. Under tasks, navigate to shadow, then shadowJar. Double click to create the executable .jar file. In the CMD, execute ```java -jar "absolute_path\dbvc\Week 1\build\libs\dbvc-1-all.jar"``` where ```absolute_path``` is replaced by the path from your directory to the repository's folder. Upon execution, the Java program is now running and the LunaMod bot is active on the server where you can now interact with it.
 
 # Project Proposal
 
