@@ -10,6 +10,10 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Added baseline project description to README.md
 - Updated Week1.md
 ### Lin Li
+- Created several of the issues in the GitHub Project (Trello replacement) and assigned them to team members
+- Made a commit to the HelloWorld.java file
+- Wrote the user persona "Alice" to represent a Sage Witch (regular) member of the server
+- Updated Week1.md with my contributions
 ### Chenxuan
 
 ## Looking Forward: Week 2
