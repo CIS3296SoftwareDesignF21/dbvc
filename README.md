@@ -11,6 +11,7 @@ The Discord Bot for Virtual Coven is a JavaScript and Java-based Discord bot tha
 
 # Personas
 - Persona 1: Server Owner
+Server creator: Jack, 29 years old, is a college student who loves witchcraft, he was born in the city and dreamed of becoming a witch when he was a kid, so he studied witchcraft in college and created this discord server when he was 27 years old, with the initial intention of helping people who love witchcraft to be able to meet new people. New users can check any information about Wicca and then can discuss with others in the server that he likes to organize events, so they can organize any event they want by contacting him, provided that they pass his requirements, such as: whether the content of the event is legal, whether there is violence, etc.. And he has the highest rights in the whole server and can kick anyone or join any new rules.
 - Persona 2: Baby Witch - New Member
 - Persona 3: Sage Witch - Regular Member
 Alice, age 20, is a college student who is well practiced in witchcraft, including knowledge about tarot, crystals, and meditation.
