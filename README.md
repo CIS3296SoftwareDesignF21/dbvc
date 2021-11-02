@@ -10,6 +10,7 @@ Download the repository onto your local machine. In Intellij, open the repositor
 # Project Proposal
 
 # Vision Statement
+For owners of discord servers that serve as virtual covens, who are looking for a way to initiate new members and moderate their servers, the Luna Bot is a server management tool that would automate the initation, moderation, and management of new and aging members of the coven. Unlike the owner being required to moderate the server on their own 24/7, the Luna Bot would give the server owner a significant amount of time back into their lives.
 
 # Personas
 - Persona 1: Server Owner
