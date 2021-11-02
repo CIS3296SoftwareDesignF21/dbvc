@@ -3,6 +3,11 @@
 List all accomplishments from the week for each team member. Remember that **every week**, each team member should have contributed to **at least one** task of consisting of writing code and **at least one** task of writing or reviewing texts or diagrams
 
 ### Anna
+- Created the GitHub project (replacement for the Trello Board) and helped create issues for our first week of tasks
+- Created user persona "Cameron" to represent a person new to witch craft interesting in becoming a part of the coven community (baby witch)
+- Added Project Vision to README.md
+- Added Project Proposal to README.md
+- Updated Week1.md with my contribuutions
 ### Rachel
 - Helped to create and assign issues for GitHub project (replacement for Trello board)
 - Created Week1.md and linked from README.md
@@ -19,8 +24,10 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Updated Week1.md with my contributions
 ### Chenxuan
 - Created "Hello World" file.
-- Wrote  the user persona "Jack" to represent a owner of the server 
+- Wrote  the user persona "Jack" to represent an owner of the server 
 - Updated Week1.md
+
+
 ## Looking Forward: Week 2
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
 
