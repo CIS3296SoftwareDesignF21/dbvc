@@ -12,18 +12,23 @@ public class RoleAssignment extends ListenerAdapter{
     public void onMessageReactionAdd (MessageReactionAddEvent event, JDA jda){
         System.out.println(event.getUser().getName() + " just reacted to a message");
         MessageReaction.ReactionEmote reaction = event.getReactionEmote();
-        System.out.println(reaction);
+        System.out.println("Adding role based on reaction: " + reaction);
         if (reaction == '') { // baby witch
-            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(907370752519585823));
+            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(907370752519585823L));
         } else if (reaction == '') { // guest
-            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(907383728668573777));
-
+            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(907383728668573777L));
         }
-        //event.getGuild().addRoleToMember(memberId, jda.getRoleById(yourRole));
     }
 
     // if a user removes their reaction from a message in the roles channel, they will be removed from the associated role
     public void onMessageReactionRemove (MessageReactionRemoveEvent event, JDA jda) {
-
+        System.out.println(event.getUser().getName() + " just reacted to a message");
+        MessageReaction.ReactionEmote reaction = event.getReactionEmote();
+        System.out.println("Removing role based on reaction: " + reaction);
+        if (reaction == '') { // baby witch
+            event.getGuild().removeRoleFromMember(event.getUserId(), jda.getRoleById(907370752519585823L));
+        } else if (reaction == '') { // guest
+            event.getGuild().removeRoleFromMember(event.getUserId(), jda.getRoleById(907383728668573777L));
+        }
     }
 }
