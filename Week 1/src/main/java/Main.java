@@ -12,7 +12,7 @@ public class Main extends ListenerAdapter {
             String token = "";
             JDA jda = JDABuilder.createDefault(token).build();
             jda.addEventListener(new Main());
-            jda.addEventListener(new RoleAssignment());
+            jda.addEventListener(new RoleAssignment(jda));
     }
 
     @Override
