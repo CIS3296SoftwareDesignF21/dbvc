@@ -2,7 +2,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
@@ -13,6 +12,7 @@ public class Main extends ListenerAdapter {
             String token = "";
             JDA jda = JDABuilder.createDefault(token).build();
             jda.addEventListener(new Main());
+            jda.addEventListener(new RoleAssignment());
     }
 
     @Override
@@ -29,4 +29,6 @@ public class Main extends ListenerAdapter {
             event.getChannel().sendMessage("Hello Rachel!").queue();
         }
     }
+
+
 }
