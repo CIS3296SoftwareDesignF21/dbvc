@@ -4,13 +4,15 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
+import java.io.IOException;
 
 public class Main extends ListenerAdapter {
-    public static void main(String[] args) throws LoginException {
+    public static void main(String[] args) throws LoginException, IOException {
             //JDABuilder builder = new JDABuilder(NULL, AccountType.BOT);
 
             // REPLACE THIS STRING WITH THE TOKEN THAT WAS SENT IN DISCORD
-            String token = "";
+            ReadConfig myConfig = new ReadConfig();
+            String token = myConfig.getToken();
             JDA jda = JDABuilder.createDefault(token).build();
             jda.addEventListener(new Main());
     }
