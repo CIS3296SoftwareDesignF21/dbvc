@@ -5,6 +5,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 ### Anna
 ### Rachel
 ### Lin Li
+- Created several of the issues in the GitHub Project board and assigned them to team members
 - Created RoleAssignments class
 - Created onMessageReactionAdd and onMessageReactionRemove, which listen for reactions added and removed
 from the Roles text channel, and adds or removes the role associated with the specific emoji reaction
