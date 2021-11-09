@@ -4,6 +4,13 @@ List all accomplishments from the week for each team member. Remember that **eve
 
 ### Anna
 ### Rachel
+- Worked to create issues on Project Board and assign to team members
+- Created ReadConfig class to read from config file with token to resolve token deactivation errors 
+- Updated installation instructions on README.md with workflow for users to generate their own token
+- Updated bot to public and created instructions for users to add bot to servers directly
+- Created additional server administrator persona based on project feedback
+- Updated UML Class Diagram with ReadConfig class 
+- Updated Week2.md
 ### Lin Li
 - Created several of the issues in the GitHub Project board and assigned them to team members
 - Created RoleAssignments class
