@@ -12,7 +12,8 @@ public class DBVC extends ListenerAdapter {
             ReadConfig myConfig = new ReadConfig();
             String token = myConfig.getToken();
 
-            JDA jda = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS).build();            jda.addEventListener(new DBVC());
+            JDA jda = JDABuilder.createDefault(token).build();
+            jda.addEventListener(new DBVC());
             jda.addEventListener(new RoleAssignment(jda));
             jda.addEventListener(new GuildInit());
     }
