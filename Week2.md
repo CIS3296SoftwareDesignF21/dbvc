@@ -17,6 +17,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Created onMessageReactionAdd and onMessageReactionRemove, which listen for reactions added and removed
 from the Roles text channel, and adds or removes the role associated with the specific emoji reaction
 - Created UML Class Diagram for DBVC and added main class and RoleAssignment class
+- Added first draft of UML class diagram to readme
 - Updated Week2.md
 ### Chenxuan
 - Created BotIn class
