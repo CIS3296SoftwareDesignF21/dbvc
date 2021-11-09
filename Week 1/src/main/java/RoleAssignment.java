@@ -26,10 +26,10 @@ public class RoleAssignment extends ListenerAdapter {
         System.out.println("Adding role based on reaction: " + reaction);
         event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(babyWitch));
         if (reaction.equals("RE:U+1f98b")) { // baby witch
-            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(babyWitch));
+            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(babyWitch)).queue();
             System.out.println("Added user to baby witch role");
         } else if (reaction.equals("RE:U+1f337")) { // guest
-            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(guest));
+            event.getGuild().addRoleToMember(event.getUserId(), jda.getRoleById(guest)).queue();
             System.out.println("Added user to guest role");
         }
     }
