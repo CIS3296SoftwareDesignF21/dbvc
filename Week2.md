@@ -5,6 +5,11 @@ List all accomplishments from the week for each team member. Remember that **eve
 ### Anna
 ### Rachel
 ### Lin Li
+- Created RoleAssignments class
+- Created onMessageReactionAdd and onMessageReactionRemove, which listen for reactions added and removed
+from the Roles text channel, and adds or removes the role associated with the specific emoji reaction
+- Created UML Class Diagram for DBVC and added main class and RoleAssignment class
+- Updated Week2.md
 ### Chenxuan
 
 
@@ -14,4 +19,7 @@ What are you working on until the next meeting? What is getting in your way or k
 ### Anna
 ### Rachel
 ### Lin Li
+- I will probably have to find a more generalized approach to adding roles to users based on associated emojis. Currently
+the emojis are mapped to role IDs that are specific to our test server. I want to look into adding a place for
+server owners to add their own role IDs into a configuration file and then using environmental variables within the code itself.
 ### Chenxuan
