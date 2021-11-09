@@ -10,9 +10,12 @@ public class Main extends ListenerAdapter {
             //JDABuilder builder = new JDABuilder(NULL, AccountType.BOT);
 
             // REPLACE THIS STRING WITH THE TOKEN THAT WAS SENT IN DISCORD
-            String token = "";
+            String token = "OTA0OTAyMTI1NzQwNTExMjYz.YYCRxw.34zCrUTMFuvg10073sAQ7-ARUUQ";
             JDA jda = JDABuilder.createDefault(token).build();
             jda.addEventListener(new Main());
+            jda.addEventListener(new BotIn());
+
+
     }
 
     @Override
