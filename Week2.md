@@ -11,7 +11,10 @@ from the Roles text channel, and adds or removes the role associated with the sp
 - Created UML Class Diagram for DBVC and added main class and RoleAssignment class
 - Updated Week2.md
 ### Chenxuan
-
+- Created BotIn class
+- Created onGuildMessageReceived, user can use command: "!join","!leave" to let bot in or out the channel.
+- Make BotIn class drawio
+- Updated Week2.md
 
 ## Looking Forward: Week 3
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
