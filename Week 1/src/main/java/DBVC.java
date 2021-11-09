@@ -2,19 +2,22 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 
-public class Main extends ListenerAdapter {
+public class DBVC extends ListenerAdapter {
+
     public static void main(String[] args) throws LoginException, IOException {
             //JDABuilder builder = new JDABuilder(NULL, AccountType.BOT);
 
             // REPLACE THIS STRING WITH THE TOKEN THAT WAS SENT IN DISCORD
             ReadConfig myConfig = new ReadConfig();
             String token = myConfig.getToken();
-            JDA jda = JDABuilder.createDefault(token).build();
-            jda.addEventListener(new Main());
+            JDA jda = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS).build();
+            jda.addEventListener(new DBVC());
+            jda.addEventListener(new GuildInit());
     }
 
     @Override
