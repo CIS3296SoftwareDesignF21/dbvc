@@ -6,17 +6,16 @@ In order to build and run the program own machine, you first need to create a Di
 1. First navigate to the [Discord Developer Portal](https://discord.com/developers/applications) and log in with your existing username and password 
 2. Under 'Applications,' create a new application for LunaBot
 3. Under 'Settings,' navigate to the 'Bot' tab and create a new bot. Copy the secret token to your clipboard. 
-4. Clone this repository onto your local machine. 
-5. Navigate to 'Week 1/src/main/resources' folder and create 'config.properties'
+4. Download the most recent release from the tab in the releases section of this repository. 
+5. In the same folder as the downloaded release, create a file called "config.properties"
 6. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```
-7. Navigate to the Gradle tab in your IDE, and execute a ShadowJar command. 
-8. In the command line, ```java -jar "absolute_path\dbvc\Week 1\build\libs\dbvc-1-all.jar"```
+7. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
 
 In order to simply add the bot to your server (rather than build and deploy it on your machine), use the link below and log in with your Discord credentials to authorize access to your server.
 * https://discord.com/oauth2/authorize?client_id=904902125740511263&scope=bot&permissions=0
 
 # Build Instructions
-Download the repository onto your local machine. In Intellij, open the repository Main.java file found in the src folder. Update the String token with the unique token identifier posted in the DBVC Discord channgel. Then, navigate to the "Gradle" tab on the far right. Under tasks, navigate to shadow, then shadowJar. Double click to create the executable .jar file. In the CMD, execute ```java -jar "absolute_path\dbvc\Week 1\build\libs\dbvc-1-all.jar"``` where ```absolute_path``` is replaced by the path from your directory to the repository's folder. Upon execution, the Java program is now running and the LunaMod bot is active on the server where you can now interact with it.
+In order to build the executable release, follow steps 1-3 and 5 in the above installation instructions to create the bot token and config.properties file. Next, download the repository onto your local machine. In Intellij, open the repository Main.java file found in the src folder. Then, navigate to the "Gradle" tab on the far right. Under tasks, navigate to shadow, then shadowJar. Double click to create the executable .jar file. Retrieve the generated .jar file (found under ```absolute_path\dbvc\Week 1\build\libs\dbvc-1-all.jar"```) and place it in the same directory as the config.properties file that was generated. In the command line, execIn the CMD, execute ```java -jar "absolute_path\dbvc-1-all.jar"```. Upon execution, the Java program is now running and the LunaMod bot is active on the server where you can now interact with it.
 
 # Project Proposal
 For this project, we would like to create a Discord Bot that will manage and moderate server that will serve as a Virtual Coven to the community of people that wish to participate in it. This bot would have multiple functionalities that occur at specified points of time, either based on the calendar date/time or server events such as a new member joining. One of the functionalities would be to lead a new member through a questionnaire/assessment that would decide which channels of the server they have access to as well as any roles that they should have assigned to them (ranging from pronouns, to whether they are pagan or a baby witch, etc.). Additionally, this bot would announce any current events or holidays that are important to the community, such as moon phases and pagan/wiccan holidays. Lastly, the bot will be able to monitor the chat on all or most channels to ensure that the community remains a safe and comfortable place for all members.
