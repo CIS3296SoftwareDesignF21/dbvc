@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.github.dbvc.iml" filepath="$PROJECT_DIR$/.idea/modules/com.github.dbvc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.github.dbvc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.github.dbvc.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.github.dbvc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.github.dbvc.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dbvc.iml" filepath="$PROJECT_DIR$/.idea/modules/dbvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dbvc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dbvc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dbvc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dbvc.test.iml" />
