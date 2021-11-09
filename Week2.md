@@ -9,7 +9,8 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Updated installation instructions on README.md with workflow for users to generate their own token
 - Updated bot to public and created instructions for users to add bot to servers directly
 - Created additional server administrator persona based on project feedback
-- Updated UML Class Diagram with ReadConfig class 
+- Created GuildInit class to recognize user joining server and set up private messaging interface with new user
+- Updated UML Class Diagram with ReadConfig, GuildInit, ListenerAdaptor classes and EventListener interface
 - Updated Week2.md
 ### Lin Li
 - Created several of the issues in the GitHub Project board and assigned them to team members
@@ -30,6 +31,7 @@ What are you working on until the next meeting? What is getting in your way or k
 
 ### Anna
 ### Rachel
+- I'm going to combine the role assignment with the guild initialization, and try to bot monitoring of user roles with a time interface (ie. let new users join, immediately assign them a role with limited access, and after a certain amount of time, give access to that new role)
 ### Lin Li
 - I will probably have to find a more generalized approach to adding roles to users based on associated emojis. Currently
 the emojis are mapped to role IDs that are specific to our test server. I want to look into adding a place for
