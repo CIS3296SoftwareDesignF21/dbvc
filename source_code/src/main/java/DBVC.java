@@ -8,6 +8,7 @@ import javax.security.auth.login.LoginException;
 import java.io.IOException;
 
 public class DBVC extends ListenerAdapter {
+
     public static void main(String[] args) throws LoginException, IOException {
             ReadConfig myConfig = new ReadConfig();
             String token = myConfig.getToken();
