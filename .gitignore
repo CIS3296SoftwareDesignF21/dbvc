@@ -1,3 +1,5 @@
 
 source_code/build/resources/main/config.properties
 source_code/build/libs/config.properties
+\dbvc\config.properties
+\.vscode
