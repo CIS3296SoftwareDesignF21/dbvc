@@ -15,7 +15,7 @@ public class ReadConfig {
             //inputStream = getClass().getClassLoader().getResourceAsStream(file);
             prop.load(inputStream);
             token = prop.getProperty("token");
-            System.out.println("Token: " + token);
+            //System.out.println("Token: " + token);
         } catch (Exception e){
             System.out.println("Exception: " + e);
         } finally {

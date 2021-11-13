@@ -53,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/source_code" />
   </component>
   <component name="RunManager">
     <configuration name="C:/Users/rlazz/Documents/GitHub/dbvc" type="GradleRunConfiguration" factoryName="Gradle">
@@ -85,6 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1635822716970</updated>
       <workItem from="1635822718903" duration="242000" />
+      <workItem from="1636732141843" duration="23000" />
     </task>
     <servers />
   </component>

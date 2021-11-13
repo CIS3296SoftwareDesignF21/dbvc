@@ -1,20 +1,26 @@
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
+import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class DBVC extends ListenerAdapter {
     public static void main(String[] args) throws LoginException, IOException {
             ReadConfig myConfig = new ReadConfig();
             String token = myConfig.getToken();
 
-            JDA jda = JDABuilder.createDefault(token).build();
+            JDA jda = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS).build();
+            JDA jda2 = JDABuilder.createDefault(token).build();
+
             jda.addEventListener(new DBVC());
-            jda.addEventListener(new RoleAssignment(jda));
+            jda2.addEventListener(new RoleAssignment());
             jda.addEventListener(new GuildInit());
     }
 

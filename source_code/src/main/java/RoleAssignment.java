@@ -15,12 +15,9 @@ public class RoleAssignment extends ListenerAdapter {
     private long guest = 907383728668573777L;
     private String rolesChannelID = "TC:roles(907008333557428295)";
 
-    public RoleAssignment(JDA jda) {
-        this.jda = jda;
-    }
-
     // when a user reacts to a message in the roles channel, they are added to the associated role
     public void onMessageReactionAdd (MessageReactionAddEvent event){
+        jda = event.getJDA();
         if (event.getChannel().toString().equals(rolesChannelID)) {
             System.out.println("channel id: " + event.getTextChannel());
             System.out.println(event.getUser().getName() + " just reacted to a message");
@@ -40,6 +37,7 @@ public class RoleAssignment extends ListenerAdapter {
 
     // if a user removes their reaction from a message in the roles channel, they will be removed from the associated role
     public void onMessageReactionRemove (MessageReactionRemoveEvent event) {
+        event.getJDA();
         if (event.getChannel().toString().equals(rolesChannelID)) {
             String reaction = event.getReactionEmote().toString();
             System.out.println("Removing role based on reaction: " + reaction);
