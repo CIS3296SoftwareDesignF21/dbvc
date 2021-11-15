@@ -4,7 +4,10 @@ List all accomplishments from the week for each team member. Remember that **eve
 
 ### Anna
 ### Rachel
-- 
+- Update the GuildInit class to utilize Timer and TimerTask classes for role adding and removing the new member role
+- New member role automated creation by the bot on the guild where new member joins
+- Add !roles command to show the available roles on the server
+- Update Week 3 readme
 ### Lin Li
 - 
 ### Chenxuan
