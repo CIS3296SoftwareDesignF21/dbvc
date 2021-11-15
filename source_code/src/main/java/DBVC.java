@@ -31,5 +31,14 @@ public class DBVC extends ListenerAdapter {
         if(event.getAuthor().getName().equals("rae")){
             event.getChannel().sendMessage("Hello Rachel!").queue();
         }
+        if(event.getAuthor().getName().equals("dobey101")){
+            event.getChannel().sendMessage("Hello Anya!").queue();
+        }
+        if(event.getAuthor().getName().equals("ears1723")){
+            event.getChannel().sendMessage("Hello Lin Li!").queue();
+        }
+                if(event.getAuthor().getName().equals("Sssss")){
+            event.getChannel().sendMessage("Hello Chenxuan!").queue();
+        }
     }
 }
