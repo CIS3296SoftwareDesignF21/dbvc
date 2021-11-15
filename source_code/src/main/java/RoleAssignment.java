@@ -14,7 +14,6 @@ public class RoleAssignment extends ListenerAdapter {
 
     public RoleAssignment(JDA jda) {
         this.jda = jda;
-        //initializeRoleIds(roleIdPairs);
     }
 
     public HashMap<String, Long> createRolesMap() {
@@ -49,7 +48,7 @@ public class RoleAssignment extends ListenerAdapter {
     }
 
     // when a user reacts to a message in the roles channel, they are added to the associated role
-    public void onMessageReactionAdd (MessageReactionAddEvent event){
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {
         roleIdPairs = createRolesMap();
         rolesChannelID = getRolesChannelId();
 
@@ -64,6 +63,51 @@ public class RoleAssignment extends ListenerAdapter {
                 System.out.println("Added user to baby witch role");
             } else if (reaction.equals("RE:U+1f337")) { // guest
                 event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Guest"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+1f34e")) { // she/her
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "she/her"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+1f350")) { // he/him
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "he/him"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+1f34a")) { // they/them
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "they/them"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2648")) { // aries
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Aries"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2649")) { // taurus
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Taurus"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264a")) { // gemini
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Gemini"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264b")) { // cancer
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Cancer"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264c")) { // leo
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Leo"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264d")) { // virgo
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Virgo"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264e")) { // libra
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Libra"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+264f")) { // scorpio
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Scorpio"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2650")) { // sagittarius
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Sagittarius"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2651")) { // capricorn
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Capricorn"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2652")) { // aquarius
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Aquarius"))).queue();
+                System.out.println("Added user to guest role");
+            } else if (reaction.equals("RE:U+2653")) { // pisces
+                event.getGuild().addRoleToMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
                 System.out.println("Added user to guest role");
             }
         }
@@ -80,6 +124,36 @@ public class RoleAssignment extends ListenerAdapter {
                 event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Baby Witch"))).queue();
             } else if (reaction.equals("RE:U+1f337")) { // guest
                 event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Guest"))).queue();
+            } else if (reaction.equals("RE:U+1f34e")) { // she/her
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "she/her"))).queue();
+            } else if (reaction.equals("RE:U+1f350")) { // he/him
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "he/him"))).queue();
+            } else if (reaction.equals("RE:U+1f34a")) { // they/them
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "they/them"))).queue();
+            } else if (reaction.equals("RE:U+2648")) { // aries
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Aries"))).queue();
+            } else if (reaction.equals("RE:U+2649")) { // taurus
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Taurus"))).queue();
+            } else if (reaction.equals("RE:U+264a")) { // gemini
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Gemini"))).queue();
+            } else if (reaction.equals("RE:U+264b")) { // cancer
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Cancer"))).queue();
+            } else if (reaction.equals("RE:U+264c")) { // leo
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Leo"))).queue();
+            } else if (reaction.equals("RE:U+264d")) { // virgo
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Virgo"))).queue();
+            } else if (reaction.equals("RE:U+264e")) { // libra
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Libra"))).queue();
+            } else if (reaction.equals("RE:U+264f")) { // scorpio
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Scorpio"))).queue();
+            } else if (reaction.equals("RE:U+2650")) { // sagittarius
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Sagittarius"))).queue();
+            } else if (reaction.equals("RE:U+2651")) { // capricorn
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Capricorn"))).queue();
+            } else if (reaction.equals("RE:U+2652")) { // aquarius
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Aquarius"))).queue();
+            } else if (reaction.equals("RE:U+2653")) { // pisces
+                event.getGuild().removeRoleFromMember(event.getUserId(), event.getJDA().getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
             }
         }
     }
