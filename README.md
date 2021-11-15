@@ -15,7 +15,7 @@ In order to build and run the program own machine, you first need to create a Di
 7. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
 
 In order to simply add the bot to your server (rather than build and deploy it on your machine), use the link below and log in with your Discord credentials to authorize access to your server.
-* https://discord.com/oauth2/authorize?client_id=904902125740511263&scope=bot&permissions=0
+* https://discord.com/api/oauth2/authorize?client_id=904902125740511263&permissions=8&scope=bot
 
 # Build Instructions
 In order to build the executable release, follow steps 1-3 and 5 in the above installation instructions to create the bot token and config.properties file. Next, download the repository onto your local machine. In Intellij, open the repository Main.java file found in the src folder. Then, navigate to the "Gradle" tab on the far right. Under tasks, navigate to shadow, then shadowJar. Double click to create the executable .jar file. Retrieve the generated .jar file (found under ```absolute_path\dbvc\Week 1\build\libs\dbvc-1-all.jar"```) and place it in the same directory as the config.properties file that was generated. In the command line, execIn the CMD, execute ```java -jar "absolute_path\dbvc-1-all.jar"```. Upon execution, the Java program is now running and the LunaMod bot is active on the server where you can now interact with it.
