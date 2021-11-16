@@ -11,7 +11,7 @@ public class muteMember {
     @Override
     protected void execute(CommandEvent commandEvent) {
         Guild guild = commandEvent.getGuild();
-        //if we're not in a guild we can't kick anyone
+        //if we're not in a guild we can't kick/mute anyone
         if(guild == null) {
             commandEvent.reply("You must run this command in a server");
             return;
