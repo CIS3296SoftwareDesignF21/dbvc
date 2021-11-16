@@ -241,14 +241,33 @@ public class DBVC extends ListenerAdapter {
         if(g.getCategoriesByName("guest channels", true).isEmpty()){
             g.createCategory("guest channels")
                     .addRolePermissionOverride(guestID, allow, null).complete();
+            g.createTextChannel("questions")
+                    .setName("questions")
+                    .setParent(g.getCategoriesByName("guest channels", true).get(0))
+                    .complete();
         }
 
         if(g.getCategoriesByName("baby witch channels", true).isEmpty()){
-            g.createCategory("baby witch channels").complete();
+            g.createCategory("baby witch channels")
+                    .complete();
+            g.createTextChannel("questions")
+                    .setName("questions")
+                    .setParent(g.getCategoriesByName("baby witch channels", true).get(0))
+                    .complete();
+            g.createTextChannel("all-about-paganism", g.getCategoriesByName("baby witch channels", true).get(0))
+                    .complete();
+            g.createVoiceChannel("voice chat", g.getCategoriesByName("baby witch channels", true).get(0))
+                    .complete();
         }
 
         if(g.getCategoriesByName("sage witch channels", true).isEmpty()){
             g.createCategory("sage witch channels").complete();
+            g.createTextChannel("questions")
+                    .setName("questions")
+                    .setParent(g.getCategoriesByName("sage witch channels", true).get(0))
+                    .complete();
+            g.createVoiceChannel("voice chat", g.getCategoriesByName("sage witch channels", true).get(0))
+                    .complete();
         }
 
         long newID = g.getRolesByName("New Member", true).get(0).getIdLong();
@@ -281,7 +300,7 @@ public class DBVC extends ListenerAdapter {
                     .setParent(g.getCategoriesByName("general text channels", true).get(0))
                     .complete();
         }
-        String mainRoles = "Main Role:\n"+"Sage Witch - \uD83D\uDD2E \n" +"Baby Witch - butterfly \n" + "Guest - flower \n";
+        String mainRoles = "Main Role:\n"+"Sage Witch - \uD83D\uDD2E \n" +"Baby Witch - \uD83E\uDD8B \n" + "Guest - \uD83C\uDF37 \n";
         String pronouns = "Pronouns:\n"+ "She/her - \uD83C\uDF4E \n" + "He/him - \uD83C\uDF50 \n" +
                 "They/them - \uD83C\uDF4A";
         String astrology = "Astrological Sign:\n" +
@@ -325,19 +344,12 @@ public class DBVC extends ListenerAdapter {
             case "!help":
                 event.getChannel().sendMessage("Oh no, you seem to be lost! Here are some commands you can try: ").queue();
                 event.getChannel().sendMessage("!online - this will tell you the number of users currently online.").queue();
-                event.getChannel().sendMessage("Looking for role assignments? Head to the ROLES text channel.").queue();
+                event.getChannel().sendMessage("Looking for role assignments? Head to the ROLES text channel or try the !roles command.").queue();
                 event.getChannel().sendMessage("Need to update your permissions? DM " + event.getGuild().getOwner().getAsMention() +
                         " in order to update your permissions or use the ROLES text channel.").queue();
                 break;
             case "!online":
-                int num = 0;
-                List<Member> members = event.getGuild().getMembers();
-                for(Member m : members){
-                    if(m.getOnlineStatus() == OnlineStatus.ONLINE){
-                        num++;
-                    }
-                }
-                event.getChannel().sendMessage("Users online: " + num).queue();
+                // insert rebase here
                 break;
             case "!roles":
                 String allRoles = "";
