@@ -1,10 +1,15 @@
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CurseWordFilter extends ListenerAdapter {
     //NOTE: curse words should be listed in lower case
-    private static final List&lt;String&gt; CURSE_WORDS = Arrays.asList(
+    private static final List<String> CURSE_WORDS = Arrays.asList(
             "evil", "mudblood", "never", "jinx", "juju", "devil", "hate"
     );
     @Override
@@ -23,10 +28,10 @@ public class CurseWordFilter extends ListenerAdapter {
                     return;
                 }
                 //try deleting it
-                event.getMessage().delete().queue(ddone-&gt;{
+                event.getMessage().delete().queue(ddone->{
                     //if it was deleted, warn the user
                     event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you cannot say that!").queue();
-                }, error-&gt;{
+                }, error->{
                     //if we got an error deleting it print it
                     System.out.println("Error deleting message with curse word");
                     error.printStackTrace();

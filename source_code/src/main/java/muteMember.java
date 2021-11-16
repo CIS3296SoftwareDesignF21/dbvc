@@ -1,7 +1,7 @@
 //class to moderate language used on server
 
 //mute members who violate guidlines
-
+/*
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.JDA;
@@ -43,3 +43,4 @@ public class muteMember {
 //left to do:
 //need to figure out how to access and add members to mentionedmembers
 //need to create muteRole named "Muted"
+*/
