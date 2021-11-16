@@ -1,15 +1,12 @@
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
@@ -26,7 +23,7 @@ public class DBVC extends ListenerAdapter {
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
         jda.addEventListener(new DBVC());
-        jda.addEventListener(new RoleAssignment(jda));
+        jda.addEventListener(new RoleAssignment());
         jda2.addEventListener(new GuildInit());
     }
 
@@ -237,7 +234,7 @@ public class DBVC extends ListenerAdapter {
         }
 
         long guestID = g.getRolesByName("Guest", true).get(0).getIdLong();
-        EnumSet<Permission> allow = EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_WRITE);
+        EnumSet<Permission> allow = EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_WRITE, Permission.MESSAGE_READ);
         if(g.getCategoriesByName("guest channels", true).isEmpty()){
             g.createCategory("guest channels")
                     .addRolePermissionOverride(guestID, allow, null).complete();
@@ -327,7 +324,6 @@ public class DBVC extends ListenerAdapter {
                     .setParent(g.getCategoriesByName("general text channels", true).get(0))
                     .complete();
         }
-
     }
 
     @Override
@@ -366,7 +362,7 @@ public class DBVC extends ListenerAdapter {
             case "!online":
                 if (event.getMessage().getContentRaw().equals("!online")) {
                     guild.retrieveMetaData().map(Guild.MetaData::getApproximatePresences).map(count ->
-                            Activity.playing("ONLINE PEOPLE  " + count)).queue(activity -> jda.getPresence().setActivity(activity));
+                            Activity.playing("ONLINE PEOPLE  " + count)).queue(activity -> event.getJDA().getPresence().setActivity(activity));
                 }
                 break;
             case "!roles":

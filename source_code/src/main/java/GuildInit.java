@@ -16,12 +16,15 @@ public class GuildInit extends ListenerAdapter {
         // constructor
         GuildMemberJoinEvent event;
         Role newMember;
+        Role guest;
         removeNewRole(GuildMemberJoinEvent e){
             this.event = e;
             this.newMember = e.getGuild().getRolesByName("New Member", true).get(0);
+            this.guest = e.getGuild().getRolesByName("Guest", true).get(0);
         }
 
         public void run(){
+            event.getGuild().addRoleToMember(event.getMember(), guest).queue();
             event.getGuild().removeRoleFromMember(event.getMember(), newMember).queue();
 
             if(event.getMember().getRoles().get(0) == null){
