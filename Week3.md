@@ -9,7 +9,13 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Add !roles command to show the available roles on the server
 - Update Week 3 readme
 ### Lin Li
-- 
+- Updated RoleAssignment to be more generalized so that the role IDs will be accessible in any newly created server
+- Resolved issue with event listeners where having the role reactions feature working meant the GuildInit feature was not functional
+- Added pronoun and astrological sign roles
+- Created issues in GitHub Projects board and assigned to team members
+- Updated UML class diagram
+- Contributed to sequence diagram
+- Updated Week3.md
 ### Chenxuan
 - 
 ## Looking Forward: Week 4
