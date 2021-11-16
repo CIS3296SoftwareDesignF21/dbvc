@@ -17,7 +17,10 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Add !roles command to show the available roles on the server
 - Added initilize function and !start command in DBVC class to create categories, channels, and roles after added bot added to the server
 - Updated GitHub Projects board story progress for the week
-- Fixed logging error by adding loggin dependency for real time logging reports during execution
+- Fixed logging error by adding logging dependency for real time logging reports during execution
+- Created 'Users Joins' sequence diagram
+- Generated and published executable binary in new release
+- Updated class diagram with changes
 - Update Week3.md
 ### Lin Li
 - Updated RoleAssignment to be more generalized so that the role IDs will be accessible in any newly created server
@@ -40,6 +43,8 @@ What are you working on until the next meeting? What is getting in your way or k
 - Blocker for above task is finding a way to interact with Google Calendar API through our bot instead of through an outside tool
 - Add Muted role and a functionality to add members to mentionedMembers list that results in muting
 ### Rachel
+- Continue working on channel permissions for server initializaion 
+- Create admin only commands with permissions
 ### Lin Li
 ### Chenxuan
 - Add !help command to shows all the command bot have.
