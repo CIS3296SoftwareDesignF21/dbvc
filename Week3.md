@@ -34,7 +34,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Update !online command to count total online user
 - Adding !online command to UML diagram.
 - Update Week3.md
-- 
+- Start workon !help command
 ## Looking Forward: Week 4
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
 
