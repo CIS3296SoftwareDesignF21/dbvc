@@ -34,7 +34,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Update !online command to count total online user
 - Adding !online command to UML diagram.
 - Update Week3.md
-- 
+- Start workon !help command
 ## Looking Forward: Week 4
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
 
@@ -46,5 +46,6 @@ What are you working on until the next meeting? What is getting in your way or k
 - Continue working on channel permissions for server initializaion 
 - Create admin only commands with permissions
 ### Lin Li
+- Potentially create a command that allows server admins to create their own roles in which the bot automatically creates the role and creates a mapping of an emoji reaction with the new role
 ### Chenxuan
 - Add !help command to shows all the command bot have.
