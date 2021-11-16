@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -9,9 +10,10 @@ public class ReadConfig {
     FileInputStream inputStream = null; //new FileInputStream(file);
     Properties prop = new Properties();
 
+
     public String getToken() throws IOException {
         try{
-            inputStream = new FileInputStream(file);
+             inputStream = new FileInputStream(file);
             //inputStream = getClass().getClassLoader().getResourceAsStream(file);
             prop.load(inputStream);
             token = prop.getProperty("token");
