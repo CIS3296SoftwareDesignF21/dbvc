@@ -10,14 +10,13 @@ The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord 
 In order to build and run the program own machine, you first need to create a Discord Bot token from the Discord developer site. The steps are below: 
 1. First navigate to the [Discord Developer Portal](https://discord.com/developers/applications) and log in with your existing username and password 
 2. Under 'Applications,' create a new application for LunaBot
-3. Under 'Settings,' navigate to the 'Bot' tab and create a new bot. Copy the secret token to your clipboard. 
-4. Download the most recent release from the tab in the releases section of this repository. 
-5. In the same folder as the downloaded release, create a file called "config.properties"
-6. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```
-7. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
-
-In order to simply add the bot to your server (rather than build and deploy it on your machine), use the link below and log in with your Discord credentials to authorize access to your server.
-* https://discord.com/api/oauth2/authorize?client_id=904902125740511263&permissions=8&scope=bot
+3. Under 'Settings,' navigate to the 'Bot' tab and create a new bot. Give the bot all of the Privileged Gateway Intents. Copy the secret token to your clipboard. 
+4. Navigate to the 'OAuth2' page, add 'bot' to scope and 'Administrator' to bot permission.
+5. Copy the generated link and use this to add the bot to your selected server.
+6. Download the most recent release from the tab in the releases section of this repository. 
+7. In the same folder as the downloaded release, create a file called "config.properties"
+8. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```, the secret token can be found on the bot page under settings (click reveal token).
+9. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
 
 # Build Instructions
 In order to build the executable release, follow steps 1-3 and 5 in the above installation instructions to create the bot token and config.properties file. Next, download the repository onto your local machine. Navigate to the ```\dbvc\source_code``` folder in your command line. In the command line, execute ```gradlew shadowJar``` (Windows) or ```./gradlew shadowJar``` (Linux/Mac). The executable jar file has now been created in the ```\dbvc\source_code\build\libs\``` folder, titled '```dbvc-1-all.jar```'. Place the ```config.properties``` file generated with your token in this folder, and navigate in the command line to this folder. To run the .jar file, enter ```java -jar dbvc-1-all.jar```. The Java program is now running, and the bot is active on the server where you can now interact with it.
