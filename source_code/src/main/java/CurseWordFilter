@@ -1,4 +1,6 @@
-
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class CurseWordFilter extends ListenerAdapter {
     //NOTE: curse words should be listed in lower case
