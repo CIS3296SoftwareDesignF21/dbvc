@@ -20,6 +20,9 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Contributed to sequence diagram, created sequence diagram showing the process of the reaction roles function
 - Updated Week3.md
 ### Chenxuan
+- Update !online command to count total online user
+- Adding !online command to UML diagram.
+- Update Week3.md
 - 
 ## Looking Forward: Week 4
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
@@ -28,3 +31,4 @@ What are you working on until the next meeting? What is getting in your way or k
 ### Rachel
 ### Lin Li
 ### Chenxuan
+- Add !help command to shows all the command bot have.
