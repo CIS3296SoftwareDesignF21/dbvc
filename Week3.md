@@ -7,7 +7,10 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Update the GuildInit class to utilize Timer and TimerTask classes for role adding and removing the new member role
 - New member role automated creation by the bot on the guild where new member joins
 - Add !roles command to show the available roles on the server
-- Update Week 3 readme
+- Added initilize function and !start command in DBVC class to create categories, channels, and roles after added bot added to the server
+- Updated GitHub Projects board story progress for the week
+- Fixed logging error by adding loggin dependency for real time logging reports during execution
+- Update Week3.md
 ### Lin Li
 - Updated RoleAssignment to be more generalized so that the role IDs will be accessible in any newly created server
 - Resolved issue with event listeners where having the role reactions feature working meant the GuildInit feature was not functional
