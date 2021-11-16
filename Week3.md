@@ -46,5 +46,6 @@ What are you working on until the next meeting? What is getting in your way or k
 - Continue working on channel permissions for server initializaion 
 - Create admin only commands with permissions
 ### Lin Li
+- Potentially create a command that allows server admins to create their own roles in which the bot automatically creates the role and creates a mapping of an emoji reaction with the new role
 ### Chenxuan
 - Add !help command to shows all the command bot have.
