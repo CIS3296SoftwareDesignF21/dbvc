@@ -99,17 +99,6 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/source_code" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\tug81\Documents\GitHub\dbvc\source_code" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\tug81\Documents\GitHub\dbvc" />
-      <recent name="C:\Users\tug81\Documents\GitHub\dbvc\source_code\src" />
-      <recent name="C:\Users\tug81\Documents\GitHub\dbvc\source_code\src\main\resources" />
-      <recent name="C:\Users\tug81\Documents\GitHub\dbvc\source_code" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="C:/Users/rlazz/Documents/GitHub/dbvc" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
@@ -140,6 +129,7 @@
       <option name="presentableId" value="Default" />
       <updated>1635822716970</updated>
       <workItem from="1635822718903" duration="242000" />
+      <workItem from="1636732141843" duration="23000" />
     </task>
     <servers />
   </component>
