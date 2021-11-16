@@ -2,7 +2,9 @@
 The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members.
 
 # UML Diagram
-![dbvc uml diagram](/DBVC.drawio.png)
+![dbvc uml diagram](/ClassDiagram.png)
+# Sequence Diagrams
+![sequence diagrams](/SequenceDiagrams.drawio.png)
 
 # Installation Instructions
 In order to build and run the program own machine, you first need to create a Discord Bot token from the Discord developer site. The steps are below: 
@@ -52,3 +54,4 @@ Sally, age 40, is a single mother of 2 kids who has been interested in witchcraf
 # Weekly Reviews
 - [Week 1](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week1.md)
 - [Week 2](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week2.md)
+- [Week 3](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week3.md)
