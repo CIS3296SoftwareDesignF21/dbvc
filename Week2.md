@@ -3,6 +3,8 @@
 List all accomplishments from the week for each team member. Remember that **every week**, each team member should have contributed to **at least one** task of consisting of writing code and **at least one** task of writing or reviewing texts or diagrams
 
 ### Anna
+- I was out sick this week and was not able to actively contribute to the project
+- I kept in contact with the team to help in smaller ways and provide advice about the scrum format
 ### Rachel
 - Worked to create issues on Project Board and assign to team members
 - Created ReadConfig class to read from config file with token to resolve token deactivation errors 
@@ -30,6 +32,9 @@ from the Roles text channel, and adds or removes the role associated with the sp
 What are you working on until the next meeting? What is getting in your way or keeping you from doing your job?
 
 ### Anna
+- I'm looking into connecting a calendar with the bot so that the bot can then read those events and announce them into the server
+- I also am generating a more thorough outline regarding the initiation survey/process
+- My blocker is that I am still not feeling well so that's certainly making it difficult to get work done but I am doing my best to contribute more this week especially since I was not able to help a lot this last week.
 ### Rachel
 - I'm going to combine the role assignment with the guild initialization, and try to bot monitoring of user roles with a time interface (ie. let new users join, immediately assign them a role with limited access, and after a certain amount of time, give access to that new role)
 ### Lin Li

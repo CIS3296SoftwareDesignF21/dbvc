@@ -6,8 +6,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
@@ -18,16 +20,14 @@ import java.util.List;
 public class DBVC extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException, IOException {
-            ReadConfig myConfig = new ReadConfig();
-            String token = myConfig.getToken();
+        ReadConfig myConfig = new ReadConfig();
+        String token = myConfig.getToken();
 
-            JDA jda = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES,
-                    GatewayIntent.GUILD_MEMBERS).build();
-            JDA jda2 = JDABuilder.createDefault(token).build();
-
-            jda.addEventListener(new DBVC());
-            jda2.addEventListener(new RoleAssignment());
-            jda.addEventListener(new GuildInit());
+        JDA jda = JDABuilder.createDefault(token).build();
+        JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
+        jda.addEventListener(new DBVC());
+        jda.addEventListener(new RoleAssignment(jda));
+        jda2.addEventListener(new GuildInit());
     }
 
     public void initialize(Guild g){
@@ -340,6 +340,21 @@ public class DBVC extends ListenerAdapter {
         switch (message) {
             case "!ping":
                 event.getChannel().sendMessage("Hello world!").queue();
+
+                if (event.getAuthor().getName().equals("rae")) {
+                    event.getChannel().sendMessage("Hello Rachel!").queue();
+                }
+
+                if(event.getAuthor().getName().equals("dobey101")){
+                    event.getChannel().sendMessage("Hello Anya!").queue();
+                }
+                if(event.getAuthor().getName().equals("ears1723")){
+                    event.getChannel().sendMessage("Hello Lin Li!").queue();
+                }
+                        if(event.getAuthor().getName().equals("Sssss")){
+                    event.getChannel().sendMessage("Hello Chenxuan!").queue();
+                }
+
                 break;
             case "!help":
                 event.getChannel().sendMessage("Oh no, you seem to be lost! Here are some commands you can try: ").queue();
@@ -349,7 +364,10 @@ public class DBVC extends ListenerAdapter {
                         " in order to update your permissions or use the ROLES text channel.").queue();
                 break;
             case "!online":
-                // insert rebase here
+                if (event.getMessage().getContentRaw().equals("!online")) {
+                    guild.retrieveMetaData().map(Guild.MetaData::getApproximatePresences).map(count ->
+                            Activity.playing("ONLINE PEOPLE  " + count)).queue(activity -> jda.getPresence().setActivity(activity));
+                }
                 break;
             case "!roles":
                 String allRoles = "";
@@ -381,7 +399,6 @@ public class DBVC extends ListenerAdapter {
                 break;
             default:
                 break;
-
         }
     }
 }
