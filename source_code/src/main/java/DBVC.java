@@ -24,7 +24,7 @@ public class DBVC extends ListenerAdapter {
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
         jda.addEventListener(new DBVC());
         jda.addEventListener(new RoleAssignment());
-        jda.addEventListener(commandClientBuilder.build(), new CurseWorldFilter());
+        jda.addEventListener(commandClientBuilder.build(), new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
     }
 
