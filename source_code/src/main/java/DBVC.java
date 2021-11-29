@@ -17,8 +17,9 @@ import java.util.List;
 public class DBVC extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException, IOException {
-        ReadConfig myConfig = new ReadConfig();
-        String token = myConfig.getToken();
+       // ReadConfig myConfig = new ReadConfig();
+      //  String token = myConfig.getToken();
+        String token = "OTA0OTAyMTI1NzQwNTExMjYz.YYCRxw.bPRVadfJoJUzsL1eSAQaVViJwlI";
 
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
@@ -27,6 +28,7 @@ public class DBVC extends ListenerAdapter {
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
+        jda.addEventListener(new ClearCommand());
     }
 
     public void initialize(Guild g){

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ReadConfig {
-    String token = "";
+    String token = "OTA0OTAyMTI1NzQwNTExMjYz.YYCRxw.8a0weGMDBmBlSYN3Yn922I5h3FU";
     // won't take string with file
     String file = "config.properties";
     FileInputStream inputStream = null; //new FileInputStream(file);
