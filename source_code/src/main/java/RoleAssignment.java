@@ -206,10 +206,10 @@ public class RoleAssignment extends ListenerAdapter {
     // creates new role with basic permissions
     public void createRoleCommand(Guild g, String[] commandInput, Message messageObj) {
         String emojiAsString = commandInput[2];
-        String emoji = emojiAsString.codePoints().mapToObj(Integer::toHexString).toString();
+        String emojiUnicode;
+        Stream<String> emoji = emojiAsString.codePoints().mapToObj(Integer::toHexString);
     
-
-        //String emojiUnicode = emojiUnicode.append(emoji);
+        // = emojiUnicode.append(emoji);
         System.out.println("CODEPOINTS: " + emoji);
         
         try {
