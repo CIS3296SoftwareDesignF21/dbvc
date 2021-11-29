@@ -1,17 +1,26 @@
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.entities.Emoji;
 
 public class RoleAssignment extends ListenerAdapter {
     private long rolesChannelID;
     private long welcomeID;
     private HashMap<String, Long> roleIdPairs = new HashMap<>();
+
     //private JDA jda;
 
     //public RoleAssignment(JDA jda) {
@@ -193,4 +202,38 @@ public class RoleAssignment extends ListenerAdapter {
             }
         }
     }
+
+    // creates new role with basic permissions
+    public void createRoleCommand(Guild g, String[] commandInput, Message messageObj) {
+        String emojiAsString = commandInput[2];
+        String emoji = emojiAsString.codePoints().mapToObj(Integer::toHexString).toString();
+    
+
+        //String emojiUnicode = emojiUnicode.append(emoji);
+        System.out.println("CODEPOINTS: " + emoji);
+        
+        try {
+            // create the role
+            if(g.getRolesByName(commandInput[1], true).isEmpty()){
+                
+                g.createRole()
+                        .setName(commandInput[1])
+                        .setColor(new Color(221, 238,221))
+                        .setPermissions(0L)
+                        .setHoisted(false)
+                        .complete();
+
+                // create role reaction mapping
+                //System.out.println("Emoji reaction to be added to " + commandInput[1] + ": " + emoji);
+                // must check so there aren't duplicate emojis too
+                System.out.println("Created role");
+            } else {
+                System.out.println("A role with this name already exists and could not be created.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: the role could not be created because the command did not use the correct format");
+        }
+
+    }
+
 }

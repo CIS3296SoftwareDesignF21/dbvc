@@ -3,6 +3,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -15,7 +16,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DBVC extends ListenerAdapter {
-
+    static RoleAssignment roleAssign = new RoleAssignment();
     public static void main(String[] args) throws LoginException, IOException {
         ReadConfig myConfig = new ReadConfig();
         String token = myConfig.getToken();
@@ -23,7 +24,7 @@ public class DBVC extends ListenerAdapter {
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
         jda.addEventListener(new DBVC());
-        jda.addEventListener(new RoleAssignment());
+        jda.addEventListener(roleAssign);
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
@@ -331,6 +332,8 @@ public class DBVC extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event){
         String message = event.getMessage().getContentRaw();
+        Message messageObj = event.getMessage();
+        String[] commandInput = message.split(" ");
         Guild guild = event.getGuild();
         System.out.println("Received a message from " + event.getAuthor().getName() +
                 ": " + event.getMessage().getContentDisplay());
@@ -397,6 +400,13 @@ public class DBVC extends ListenerAdapter {
                 break;
             default:
                 break;
+        }
+
+        // checking for !createrole command
+        if (commandInput[0].equals("!createrole")) {
+            System.out.println(event.getAuthor().getName() + " is trying to create a new role: " + event.getMessage().getContentDisplay());
+            //event.getChannel().sendMessage("Please react to your message with your choice emoji to create the role reaction").queue();
+            roleAssign.createRoleCommand(guild, commandInput, messageObj);
         }
     }
 }
