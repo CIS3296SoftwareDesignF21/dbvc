@@ -419,6 +419,10 @@ public class DBVC extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event){
         String message = event.getMessage().getContentRaw();
         Guild guild = event.getGuild();
+
+        if(event.getAuthor().isBot()){
+            return;
+        }
         System.out.println("Received a message from " + event.getAuthor().getName() +
                 ": " + event.getMessage().getContentDisplay());
 
@@ -610,11 +614,24 @@ public class DBVC extends ListenerAdapter {
 
                 break;
             case "!help":
-                event.getChannel().sendMessage("Oh no, you seem to be lost! Here are some commands you can try: ").queue();
-                event.getChannel().sendMessage("!online - this will tell you the number of users currently online.").queue();
-                event.getChannel().sendMessage("Looking for role assignments? Head to the ROLES text channel or try the !roles command.").queue();
-                event.getChannel().sendMessage("Need to update your permissions? DM " + event.getGuild().getOwner().getAsMention() +
-                        " in order to update your permissions or use the ROLES text channel.").queue();
+                TextChannel rolesChannel = guild.getTextChannelsByName("roles", true).get(0);
+
+                event.getChannel().sendMessage("Here are all the commands available for you to try: ").queue();
+                event.getChannel().sendMessage("!online - this will tell you the number of users currently online").queue();
+                event.getChannel().sendMessage("!roles - list all available roles for server and your assigned roles").queue();
+                event.getChannel().sendMessage("ADMIN ONLY COMMANDS\n"+
+                        "!promote @USER - give administrator privileges\n!demote @USER - remove administrator privileges\n"+
+                        "!kick @USER -REASON - remove user from server due to reason\n"+
+                        "!ban @USER -REASON -NUMDAY(S) - ban user from server due to reason for numday(s)\n"+
+                        "!unban @USER - remove user ban from server\n" +
+                        "!mute @USER - mute user on voice channels\n!unmute @USER - unmute user on voice channels\n"+
+                        "!addRole @ROLE @USER - manually add role to user\n!removeRole @ROLE @USER - manually remove role from user\n"+
+                        "!deleteRoles - manually delete all roles from server\n"+
+                        "!deleteChannels - manually delete all roles from server\n").queue();
+                event.getChannel().sendMessage("SERVER OWNER ONLY COMMANDS\n"+
+                        "!start - initialize empty server with preset roles, channels, and permissions").queue();
+                event.getChannel().sendMessage("Looking for role assignments? Head to " + rolesChannel.getAsMention() + " to update roles.").queue();
+                event.getChannel().sendMessage("Need manual permissions help or have concerns? DM an admin!").queue();
                 break;
             case "!online":
                 if (event.getMessage().getContentRaw().equals("!online")) {
