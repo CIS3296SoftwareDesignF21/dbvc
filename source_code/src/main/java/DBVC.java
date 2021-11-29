@@ -13,14 +13,19 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DBVC extends ListenerAdapter {
+    String conditions;
+    DBVC(String a){
+        conditions = a;
+    }
 
     public static void main(String[] args) throws LoginException, IOException {
         ReadConfig myConfig = new ReadConfig();
         String token = myConfig.getToken();
+        String conditions = myConfig.getConditions();
 
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
-        jda.addEventListener(new DBVC());
+        jda.addEventListener(new DBVC(conditions));
         jda.addEventListener(new RoleAssignment());
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
@@ -266,9 +271,11 @@ public class DBVC extends ListenerAdapter {
                     .complete();
 
             String welcomeMsg = "Welcome to the server! Before you get access, you need to agree to the terms and conditions of this server."+
-                    " Please react with the \u270D emoji to receive acknowledge the server terms and conditions. After you acknowledge terms and " +
-                    "conditions and have been a member of the server for at least 10 minutes, you will gain access to the rest of the server. ";
+                    " Please react with the \u270D emoji to acknowledge the server terms and conditions. After you acknowledge terms and " +
+                    "conditions and have been a member of the server for at least 10 minutes, you will gain access to the rest of the server! " +
+                    "If you remove your authorization reaction from this message, you will no longer have access to the server contents.";
             g.getTextChannelsByName("welcome", true).get(0).sendMessage(welcomeMsg).queue();
+            g.getTextChannelsByName("welcome", true).get(0).sendMessage(conditions).queue();
 
             String mainRoles = "Main Role:\n"+"Sage Witch - \uD83D\uDD2E \n" +"Baby Witch - \uD83E\uDD8B \n" + "Guest - \uD83C\uDF37 \n";
             String pronouns = "Pronouns:\n"+ "She/her - \uD83C\uDF4E \n" + "He/him - \uD83C\uDF50 \n" +
