@@ -37,7 +37,7 @@ We believe that this project will help fulfill the education goals set forth due
 Discord API allows for collaboration with a multitude of languages, but from what we've seen so far, we plan to use a combination of JavaScript (including JSON) and Java to code the Discord bot. While Python is a popular coding language when it comes to developing Discord bots, the clearer / more well defined coding structure involved in Java is more ideal for this project, particularly since this is going to be a bot that multiple people work on at the same time. We believe using JavaScript and Java will be ideal in terms of their integration into the Discord API as well as their use in collaboration.
 
 # Vision Statement
-For owners of discord servers that serve as virtual covens, who are looking for a way to initiate new members and moderate their servers, the Luna Bot is a server management tool that would automate the initation, moderation, and management of new and aging members of the coven. Unlike the owner being required to moderate the server on their own 24/7, the Luna Bot would give the server owner a significant amount of time back into their lives.
+For owners of discord servers that serve as virtual covens, who are looking for a way to initiate new members and moderate their servers, the Luna Bot is a server management tool that would automate the initiation, moderation, and management of new and aging members of the coven. Unlike the owner being required to moderate the server on their own 24/7, the Luna Bot would give the server owner a significant amount of time back into their lives.
 
 # Supplemental Materials 
 ## Weekly Reviews 
