@@ -1,26 +1,33 @@
 # Project Description
-The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members.
+The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members. The project is written in Java using the JDA API to utilize the Discord API.
 
-# UML Diagram
-![dbvc uml diagram](/ClassDiagram.png)
-# Sequence Diagrams
-![sequence diagrams](/SequenceDiagrams.drawio.png)
+Project Members: Anna Minasyan, Rachel Lazzaro, Lin Li Oechsle, and Chenxuan Sun
 
 # Installation Instructions
 In order to build and run the program own machine, you first need to create a Discord Bot token from the Discord developer site. The steps are below: 
 1. First navigate to the [Discord Developer Portal](https://discord.com/developers/applications) and log in with your existing username and password 
 2. Under 'Applications,' create a new application for LunaBot
-3. Under 'Settings,' navigate to the 'Bot' tab and create a new bot. Copy the secret token to your clipboard. 
-4. Download the most recent release from the tab in the releases section of this repository. 
-5. In the same folder as the downloaded release, create a file called "config.properties"
-6. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```
-7. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
-
-In order to simply add the bot to your server (rather than build and deploy it on your machine), use the link below and log in with your Discord credentials to authorize access to your server.
-* https://discord.com/api/oauth2/authorize?client_id=904902125740511263&permissions=8&scope=bot
+3. Under 'Settings,' navigate to the 'Bot' tab and create a new bot. Give the bot all of the Privileged Gateway Intents. Copy the secret token to your clipboard. 
+4. Navigate to the 'OAuth2' page, add 'bot' to scope and 'Administrator' to bot permissions.
+5. Copy the generated link and use this to add the bot to your selected server.
+6. Download the most recent release from the tab in the releases section of this repository. 
+7. In the same folder as the downloaded release, create a file called "config.properties"
+8. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```, the secret token can be found on the bot page under settings (click reveal token).
+9. After adding the 'token' variable, add called 'conditions' like so: ```conditions=SERVER TERMS AND CONDITIONS: \```. Feel free to use the template below as terms and conditions for your server: 
+```
+conditions=SERVER TERMS AND CONDITIONS: \
+No inappropriate or offensive nicknames, profile pictures, or messages. \
+No inviting unofficial bots. No illegal content, harassment, or sexually explicit content. \
+No publishing of personal information, no trolling, or spamming. \
+Moderators and the Luna Bot reserve the right to limit your roles, interactions, and messaging capabilities. \
+Be nice and have fun! \
+```
+If you choose to write your own server terms and conditions, be sure to include ``` \``` at the end of each line in order to include all lines in the ```conditions``` property.
+10. Create a new file called ```custom_roles.txt```. Place both the ```config.properties``` and ```custom_roles.txt``` files in the same directory as the downloaded release.
+11. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
 
 # Build Instructions
-In order to build the executable release, follow steps 1-3 and 5 in the above installation instructions to create the bot token and config.properties file. Next, download the repository onto your local machine. Navigate to the ```\dbvc\source_code``` folder in your command line. In the command line, execute ```gradlew shadowJar``` (Windows) or ```./gradlew shadowJar``` (Linux/Mac). The executable jar file has now been created in the ```\dbvc\source_code\build\libs\``` folder, titled '```dbvc-1-all.jar```'. Place the ```config.properties``` file generated with your token in this folder, and navigate in the command line to this folder. To run the .jar file, enter ```java -jar dbvc-1-all.jar```. The Java program is now running, and the bot is active on the server where you can now interact with it.
+In order to build the executable release, follow steps 1-5 in the above installation instructions to create the bot application and token. Do not download the release in step 6. Follow steps 7-10 to create the ```config.properties``` file with the token, server conditions, as well as the ```custom_roles.txt``` file. Next, download the repository onto your local machine. Navigate to the ```\dbvc\source_code``` folder in your command line. In the command line, execute ```gradlew shadowJar``` (Windows) or ```./gradlew shadowJar``` (Linux/Mac). The executable jar file has now been created in the ```\dbvc\source_code\build\libs\``` folder, titled '```dbvc-1-all.jar```'. Place the ```config.properties``` file generated with your token in this folder, and navigate in the command line to this folder. To run the .jar file, enter ```java -jar dbvc-1-all.jar```. The Java program is now running, and the bot is active on the server where you can now interact with it.
 
 # Project Proposal
 For this project, we would like to create a Discord Bot that will manage and moderate server that will serve as a Virtual Coven to the community of people that wish to participate in it. This bot would have multiple functionalities that occur at specified points of time, either based on the calendar date/time or server events such as a new member joining. One of the functionalities would be to lead a new member through a questionnaire/assessment that would decide which channels of the server they have access to as well as any roles that they should have assigned to them (ranging from pronouns, to whether they are pagan or a baby witch, etc.). Additionally, this bot would announce any current events or holidays that are important to the community, such as moon phases and pagan/wiccan holidays. Lastly, the bot will be able to monitor the chat on all or most channels to ensure that the community remains a safe and comfortable place for all members.
@@ -32,26 +39,14 @@ Discord API allows for collaboration with a multitude of languages, but from wha
 # Vision Statement
 For owners of discord servers that serve as virtual covens, who are looking for a way to initiate new members and moderate their servers, the Luna Bot is a server management tool that would automate the initation, moderation, and management of new and aging members of the coven. Unlike the owner being required to moderate the server on their own 24/7, the Luna Bot would give the server owner a significant amount of time back into their lives.
 
-# Personas
-- Persona 1: Server Owner
-Server creator: Jack, 29 years old, is a college student who loves witchcraft, he was born in the city and dreamed of becoming a witch when he was a kid, so he studied witchcraft in college and created this discord server when he was 27 years old, with the initial intention of helping people who love witchcraft to be able to meet new people. New users can check any information about Wicca and then can discuss with others in the server that he likes to organize events, so they can organize any event they want by contacting him, provided that they pass his requirements, such as: whether the content of the event is legal, whether there is violence, etc.. And he has the highest rights in the whole server and can kick anyone or join any new rules.
-- Persona 2: Baby Witch - New Member
-Cameron, age 23, has spent the last 5 years after high school trying to figure out what he wants to do with the rest of his life. He has studied various trades and taken a few classes at trade schools but nothing really stuck to him. Once the COVID-19 Pandemic started, his oppurtunities became even more limited and so he decided to take some time off to relax and play video games. Through this, Cameron became an avid discord user and ended up hearing about a server that served as a virtual coven. Having never really looked into witch craft before, he starting searching on the internet to discover more and found himself significantly intrigued and wanting to learn more about how to become involved in witchcraft. Cameron decided he wanted to join this Discord Server that functioned as a virtual coven to become more involved in the community and discover more about the craft. With the Luna Bot, Cameron will be able to become integrated into the coven/server easily and will be encouraged to do more learning from listening and observing and without it being an overwhelming process by having a slightly more limited array of channels to explore and more restrictions regarding sending messages and participating in voice chats.
-- Persona 3: Sage Witch - Regular Member
-Alice, age 20, is a college student who is well practiced in witchcraft, including knowledge about tarot, crystals, and meditation.
-She grew up in a smaller town in which more niche interests are often overlooked or not present within the community.
-When she got to college, she was able to meet other witches and people with interest in witchcraft.
-She loves to share her knowledge with others and is also interested in learning from more experienced witches. She is familiar
-with Discord and knows how to send messages, add friends, and join servers. With Luna Bot, Alice is an official and regular member
-of a virtual coven. She has been a member of the virtual coven for long enough that her status is Sage Witch, in which
-she has the permission to send messages in any of the text channels and is able to join exclusive voice channels. She is free
-to discuss witchcraft and rituals throughout the server.
-- Persona 4: Observing User - New Member with limited access
-Maria, age 34, is a current grad student studying philosophy. She comes from Boston, MA, but relocated to Indiana for graduate study. She recently has been interested in learning more about witchcraft but has not been able to find a welcoming community in her current location, and the COVID-19 pandemic has made traveling to meet with others more difficult. She is interested in finding some sort of community online that would be welcoming and easily accessible. Maria has never used Discord for instant messaging, video calls, or text messaging, and her main forms of online communication are simply emails. As a new member with limited access, Maria can familiarize herself with the community and the discord technology environment without the pressure to interact on the server.
-- Persona 5: Server Administrator
-Sally, age 40, is a single mother of 2 kids who has been interested in witchcraft and a pagan community for the majority of her lifetime. She has been active on a Discord server for an online community and recently got promoted to an administrative role due to her background, knowledge, and enthusiasm for the community. However, she has a busy schedule and responsibilities outside of this activity, and she does not have the time to constantly moderate the server while also handling her job and family. With the addition of Luna Bot to her server, role creation is automated and moderation is less taxing, and she is able to focus on fostering her community without the extra tax of time commitment. 
-
-# Weekly Reviews
+# Supplemental Materials 
+## Weekly Reviews 
 - [Week 1](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week1.md)
 - [Week 2](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week2.md)
 - [Week 3](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week3.md)
+- [Week 4](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/Week4.md)
+
+## Diagrams and Personas
+- [Available here](https://github.com/CIS3296SoftwareDesignF21/dbvc/blob/readMeEdits/DiagramsAndPersonas.md)
+
+
