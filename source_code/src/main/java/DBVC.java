@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 public class DBVC extends ListenerAdapter {
 
@@ -33,12 +34,13 @@ public class DBVC extends ListenerAdapter {
         jda.addEventListener(roleAssign);
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
+        jda.addEventListener(new BotIn());
         jda2.addEventListener(new GuildInit());
         jda.addEventListener(new ClearCommand());
     }
 
-    public void initialize(Guild g){
-        // all permissions for server management
+    public void initialize(MessageReceivedEvent e){
+     Guild g = e.getGuild();
         if(g.getRolesByName("Admin", true).isEmpty()){
             g.createRole()
                     .setName("Admin")
@@ -47,6 +49,8 @@ public class DBVC extends ListenerAdapter {
                     .setHoisted(true)
                     .complete();
         }
+        g.addRoleToMember(e.getMember(), g.getRolesByName("Admin", true).get(0)).queue();
+
 
         // initialize roles with permissions
         // read only on welcome channel
@@ -440,7 +444,7 @@ public class DBVC extends ListenerAdapter {
 
         if(event.getMember().isOwner()){
             if(message.equals("!start")){
-                initialize(guild);
+                initialize(event);
             }
         }
 
@@ -612,11 +616,12 @@ public class DBVC extends ListenerAdapter {
                 event.getChannel().sendMessage("Here are all the commands available for you to try: ").queue();
                 event.getChannel().sendMessage("!online - this will tell you the number of users currently online").queue();
                 event.getChannel().sendMessage("!roles - list all available roles for server and your assigned roles").queue();
+                event.getChannel().sendMessage("!join - while on voice channel, add bot to channel").queue();
+                event.getChannel().sendMessage("!leave - while on voice channel, remove bot from channel").queue();
                 event.getChannel().sendMessage("ADMIN ONLY COMMANDS\n"+
                         "!promote @USER - give administrator privileges\n!demote @USER - remove administrator privileges\n"+
                         "!kick @USER -REASON - remove user from server due to reason\n"+
                         "!ban @USER -REASON -NUMDAY(S) - ban user from server due to reason for numday(s)\n"+
-                        "!unban @USER - remove user ban from server\n" +
                         "!mute @USER - mute user on voice channels\n!unmute @USER - unmute user on voice channels\n"+
                         "!addRole @ROLE @USER - manually add role to user\n!removeRole @ROLE @USER - manually remove role from user\n"+
                         "!deleteRoles - manually delete all roles from server\n"+
