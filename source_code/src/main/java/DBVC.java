@@ -23,7 +23,7 @@ public class DBVC extends ListenerAdapter {
     DBVC(String a){
         conditions = a;
     }
-  
+
   public static void main(String[] args) throws LoginException, IOException {
         ReadConfig myConfig = new ReadConfig();
         String token = myConfig.getToken();
@@ -37,6 +37,7 @@ public class DBVC extends ListenerAdapter {
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
+        jda.addEventListener(new ClearCommand());
     }
 
     public void initialize(Guild g){
