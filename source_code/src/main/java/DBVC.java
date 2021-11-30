@@ -35,6 +35,7 @@ public class DBVC extends ListenerAdapter {
         jda.addEventListener(new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
         jda.addEventListener(new ClearCommand());
+        jda.addEventListener(new muteMember());
     }
 
     public void initialize(Guild g){
