@@ -31,6 +31,8 @@ public class CurseWordFilter extends ListenerAdapter {
                 event.getMessage().delete().queue(ddone->{
                     //if it was deleted, warn the user
                     event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you cannot say that!").queue();
+                    event.getGuild().getTextChannelsByName("naughty-list", true).get(0).sendMessage(event.getAuthor().getAsMention() +
+                            " said something from the banned word list. :(").queue();
                 }, error->{
                     //if we got an error deleting it print it
                     System.out.println("Error deleting message with curse word");
