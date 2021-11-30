@@ -1,4 +1,5 @@
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ClearCommand extends ListenerAdapter {
@@ -19,7 +20,7 @@ public class ClearCommand extends ListenerAdapter {
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
-        if (args[0].equalsIgnoreCase("!clear")) {
+        if (args[0].equalsIgnoreCase("!clear") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
             if(args.length<=2){
                 ErrorMessage(event.getChannel(),event.getMember());
             }else{
@@ -31,9 +32,11 @@ public class ClearCommand extends ListenerAdapter {
                     for(int i = 3;i< args.length;i++){
                         reason+= args[i]+" ";
                     }
-                    log(event.getMember(), args[2], reason,event.getGuild().getTextChannelById("914906046408056882"),texttarget);
+                    log(event.getMember(), args[2], reason,
+                            event.getGuild().getTextChannelsByName("message-clear-report", true).get(0),texttarget);
                 }else {
-                    log(event.getMember(), args[2], "",event.getGuild().getTextChannelById("914906046408056882"),texttarget);
+                    log(event.getMember(), args[2], "",
+                            event.getGuild().getTextChannelsByName("message-clear-report", true).get(0),texttarget);
                 }
             }
 
@@ -48,7 +51,8 @@ public class ClearCommand extends ListenerAdapter {
         builder.setColor(Color.decode("#EA2027"));
         builder.setDescription("() = Required, [] = Optional");
         builder.addField("Proper usage: !clear + (#Channel) + (Number of line you want delete) + [Reason]" ,"",false);
-        textchannel.sendMessage(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
+        textchannel.sendMessageEmbeds(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
+        //textchannel.sendMessage(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
     }
     public void log(Member clearer, String num, String reason, TextChannel incident, TextChannel cleared){
         SimpleDateFormat year = new SimpleDateFormat("MM/dd/yyyy");
@@ -63,7 +67,9 @@ public class ClearCommand extends ListenerAdapter {
         builder.addField("Reason", reason,false);
         builder.addField("Date",year.format(date),false);
         builder.addField("Time", time.format(date),false);
-        incident.sendMessage(builder.build()).queue();
+
+        incident.sendMessageEmbeds(builder.build()).queue();
+        //incident.sendMessage(builder.build()).queue();
     }
     private void DeleteMessage(TextChannel textchannel, int number){
         MessageHistory history = new MessageHistory(textchannel);
