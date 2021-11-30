@@ -51,7 +51,8 @@ public class ClearCommand extends ListenerAdapter {
         builder.setColor(Color.decode("#EA2027"));
         builder.setDescription("() = Required, [] = Optional");
         builder.addField("Proper usage: !clear + (#Channel) + (Number of line you want delete) + [Reason]" ,"",false);
-        textchannel.sendMessage(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
+        textchannel.sendMessageEmbeds(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
+        //textchannel.sendMessage(builder.build()).complete().delete().queueAfter(20, TimeUnit.SECONDS);
     }
     public void log(Member clearer, String num, String reason, TextChannel incident, TextChannel cleared){
         SimpleDateFormat year = new SimpleDateFormat("MM/dd/yyyy");
@@ -66,7 +67,9 @@ public class ClearCommand extends ListenerAdapter {
         builder.addField("Reason", reason,false);
         builder.addField("Date",year.format(date),false);
         builder.addField("Time", time.format(date),false);
-        incident.sendMessage(builder.build()).queue();
+
+        incident.sendMessageEmbeds(builder.build()).queue();
+        //incident.sendMessage(builder.build()).queue();
     }
     private void DeleteMessage(TextChannel textchannel, int number){
         MessageHistory history = new MessageHistory(textchannel);

@@ -433,7 +433,7 @@ public class DBVC extends ListenerAdapter {
         System.out.println("Received a message from " + event.getAuthor().getName() +
                 ": " + event.getMessage().getContentDisplay());
 
-        String reason = null;
+        String reason = "";
         Member member = null;
         Role role = null;
         int days = -1;
@@ -445,18 +445,6 @@ public class DBVC extends ListenerAdapter {
         }
 
         if(event.getMember().hasPermission(Permission.ADMINISTRATOR)){
-            message = event.getMessage().getContentDisplay();
-            System.out.println("message: "+ message);
-            if(message.lastIndexOf('-') != -1){
-                reason = message.substring(message.indexOf('-'));
-            }
-
-            String s = message.replaceAll("[[^0-9]+]", " ").trim().replaceAll(" +", " ");
-            if(!s.equals("")){
-                days = Integer.parseInt(s);
-            }
-            message = message.split("\\s+")[0];
-
             if(event.getMessage().getMentionedMembers().size() != 0){
                 member = event.getMessage().getMentionedMembers().get(0);
             }
@@ -468,9 +456,9 @@ public class DBVC extends ListenerAdapter {
             TextChannel roleLog = guild.getTextChannelsByName("role-log", true).get(0);
             TextChannel naughtyLog = guild.getTextChannelsByName("naughty-list", true).get(0);
 
-            switch(message){
+            switch(commandInput[0]){
                 case "!promote":
-                    if(member == null ){
+                    if(member == null || commandInput.length != 2){
                         roleLog.sendMessage("Usage error: !promote @USER").queue();
                     } else {
                         guild.addRoleToMember(member.getIdLong(), guild.getRolesByName("admin", true).get(0)).queue();
@@ -479,7 +467,7 @@ public class DBVC extends ListenerAdapter {
                     }
                     break;
                 case "!demote":
-                    if(member == null ){
+                    if(member == null || commandInput.length != 2){
                         roleLog.sendMessage("Usage error: !demote @USER").queue();
                     } else {
                         guild.removeRoleFromMember(member.getIdLong(), guild.getRolesByName("admin", true).get(0)).queue();
@@ -488,19 +476,23 @@ public class DBVC extends ListenerAdapter {
                     }
                     break;
                 case "!kick":
-                    if(member == null || reason == null){
+                    if(commandInput.length < 3 || member == null){
                         naughtyLog.sendMessage("Usage error: !kick @USER -REASON").queue();
                     } else {
-                        guild.kick(member, reason).queue();
-                        String finalReason = reason;
+                        for(int i = 2; i < commandInput.length; i++){
+                            reason+=commandInput[i] + " ";
+                        }
+
+                        guild.kick(member, reason.toString()).queue();
+                        String finalReason = reason.toString();
                         member.getUser().openPrivateChannel().flatMap(privateMessage ->
-                                privateMessage.sendMessage("You have been kicked from the server for this reason " + finalReason)).queue();
+                                privateMessage.sendMessage("You have been kicked from the server for this reason: " + finalReason)).queue();
                         naughtyLog.sendMessage("Kicked " + member.getAsMention() + " for this reason " + reason).queue();
                         System.out.println("Kicked user: " + member.getAsMention());
                     }
                     break;
                 case "!mute":
-                    if(member == null){
+                    if(member == null || commandInput.length != 2){
                         naughtyLog.sendMessage("Usage error: !mute @USER").queue();
                     } else {
                         guild.mute(member, true).queue();
@@ -510,7 +502,7 @@ public class DBVC extends ListenerAdapter {
                     }
                     break;
                 case "!unmute":
-                    if(member == null){
+                    if(member == null || commandInput.length != 2){
                         naughtyLog.sendMessage("Usage error: !unmute @USER").queue();
                     } else {
                         guild.mute(member, false).queue();
@@ -520,57 +512,48 @@ public class DBVC extends ListenerAdapter {
                     }
                     break;
                 case "!ban":
-                    if(member == null || reason == null || days == -1){
+                    if(member == null || commandInput.length < 4){
                         naughtyLog.sendMessage("Usage error: !ban @USER -REASON -NUM_DAY(S)").queue();
                     } else {
-                        guild.ban(member, days).queue();
-                        String finalReason = reason;
-                        int finalDays = days;
+                        try{
+                            days = Integer.parseInt(commandInput[commandInput.length-1]);
+                        } catch (Exception e){
+                            naughtyLog.sendMessage("Usage error: !ban @USER -REASON -NUM_DAY(S)").queue();
+                            break;
+                        }
 
+
+                        for(int i = 2; i < commandInput.length-1; i++){
+                            reason+=commandInput[i] + " ";
+                        }
+
+                        guild.ban(member, days, reason).queue();
+                        int finalDays = days;
+                        String finalReason1 = reason;
                         member.getUser().openPrivateChannel().flatMap(privateMessage ->
-                                privateMessage.sendMessage("You have been banned from the server for " + finalDays + "days " +
-                                        "for this reason " + finalReason)).queue();
+                                privateMessage.sendMessage("You have been banned from the server for " + finalDays + " days " +
+                                        "for this reason: " + finalReason1)).queue();
                         naughtyLog.sendMessage(event.getAuthor().getAsMention() + " banned " + member.getAsMention() +
-                                " for " + days + " days for this reason " + reason).queue();
+                                " for " + days + " days for this reason: " + reason).queue();
                         System.out.println("Banned user: " + member.getAsMention());
                     }
                     break;
-                case "!unban":
-                    if(member == null){
-                        naughtyLog.sendMessage("Usage error: !unban @USER -REASON -NUM_DAY(S)").queue();
-                    } else {
-                        guild.unban(member.getUser()).queue();
-                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
-                                privateMessage.sendMessage("You have been unbanned from the server")).queue();
-                        naughtyLog.sendMessage(event.getAuthor().getAsMention() + " unbanned " + member.getAsMention()).queue();
-                        System.out.println("Unbanned user: " + member.getAsMention());
-                    }
-                    break;
                 case "!removeRole":
-                    if(member == null || role == null){
+                    if(member == null || role == null || commandInput.length != 3){
                         roleLog.sendMessage("Usage error: !removeRole @ROLE @USER").queue();
                     } else {
                         guild.removeRoleFromMember(member.getIdLong(), role).queue();
                         roleLog.sendMessage("Removed " + member.getAsMention() + " from " + role.getAsMention()).queue();
                         System.out.println("Removed " + member.getAsMention() + " from " + role.getAsMention());
-
-                        //Role finalRole = role;
-                        //member.getUser().openPrivateChannel().flatMap(privateMessage ->
-                         //       privateMessage.sendMessage("You have been removed from " + finalRole.getAsMention() + " role by " +
-                        //                event.getMember().getAsMention())).queue();
                     }
                     break;
                 case "!addRole":
-                    if(member == null || role == null){
+                    if(member == null || role == null || commandInput.length != 3){
                         naughtyLog.sendMessage("Usage error: !addRole @ROLE @USER").queue();
                     } else {
                         guild.addRoleToMember(member.getIdLong(), role).queue();
                         roleLog.sendMessage("Added " + member.getAsMention() + " to " + role.getAsMention()).queue();
                         System.out.println("Added " + member.getAsMention() + " to " + role.getAsMention());
-                        //Role finalRole = role;
-                        //member.getUser().openPrivateChannel().flatMap(privateMessage ->
-                        //        privateMessage.sendMessage("You have been added to " + finalRole.getAsMention() + " role by " +
-                        //               event.getMember().getAsMention())).queue();
                     }
                     break;
                 case "!deleteChannels":
