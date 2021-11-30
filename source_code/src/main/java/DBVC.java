@@ -405,7 +405,6 @@ public class DBVC extends ListenerAdapter {
         // checking for !createrole command
         if (commandInput[0].equals("!createrole")) {
             System.out.println(event.getAuthor().getName() + " is trying to create a new role: " + event.getMessage().getContentDisplay());
-            //event.getChannel().sendMessage("Please react to your message with your choice emoji to create the role reaction").queue();
             roleAssign.createRoleCommand(guild, commandInput, messageObj);
         }
     }
