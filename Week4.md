@@ -14,6 +14,12 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Fixed Guest member access bug by editing permissions during role creation and adding permissions overrides
 - Fixed Sage Witch emoji reaction bug
 ### Lin Li
+- Created !createrole command which allows individual servers to have roles outside of the default roles that come with every server
+- Refactored RoleAssignment class to allow for custom roles
+- Updated project board and assigned tasks to members
+- Contributed to PowerPoint presentation for final presentation
+- Updated RoleAssignment sequence diagram
+- Updated Week4.md with contributions
 ### Chenxuan
 - Edit week4.md with contributions
 - Edit PowerPoint presentation for final presentation
