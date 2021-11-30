@@ -589,6 +589,9 @@ public class DBVC extends ListenerAdapter {
                             r.delete().queue();
                         }
                     }
+                case "!createRole":
+                    System.out.println(event.getAuthor().getName() + " is trying to create a new role: " + event.getMessage().getContentDisplay());
+                    roleAssign.createRoleCommand(guild, commandInput, messageObj);
                 default:
                     break;
             }
@@ -627,7 +630,9 @@ public class DBVC extends ListenerAdapter {
                         "!mute @USER - mute user on voice channels\n!unmute @USER - unmute user on voice channels\n"+
                         "!addRole @ROLE @USER - manually add role to user\n!removeRole @ROLE @USER - manually remove role from user\n"+
                         "!deleteRoles - manually delete all roles from server\n"+
-                        "!deleteChannels - manually delete all roles from server\n").queue();
+                        "!deleteChannels - manually delete all roles from server\n" +
+                        "!createRole ROLE EMOJI - create a new role with an emoji attached to it\n" +
+                        "!clear @CHANNEL NUM_MESSAGES REASON - clear specific channel by a certain number of messages for specified reason\n").queue();
                 event.getChannel().sendMessage("SERVER OWNER ONLY COMMANDS\n"+
                         "!start - initialize empty server with preset roles, channels, and permissions").queue();
                 event.getChannel().sendMessage("Looking for role assignments? Head to " + rolesChannel.getAsMention() + " to update roles.").queue();

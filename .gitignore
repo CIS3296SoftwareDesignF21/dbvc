@@ -3,3 +3,7 @@ source_code/build/resources/main/config.properties
 source_code/build/libs/config.properties
 \dbvc\config.properties
 \.vscode
+source_code/config.properties
+source_code/config.properties
+source_code/dbvc-1-all.jar
+source_code/src/main/java/custom_roles.txt
