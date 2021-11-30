@@ -17,10 +17,12 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Update build instructions to be more generic based on feedback from other lab members
 - Update Readme.MD to look more professional (moved all diagrams and personas to additional .md file)
 - Update project board accordingly with tasks and accomplishments
-- Added admin only commands including !promote, !demote, !kick, !ban, !unban, !addRole, !removeRole
+- Added admin only commands including !promote, !demote, !kick, !ban, !addRole, !removeRole
 - Created admin only !deleteChannels and !deleteRoles for easier testing
 - Fixed Guest member access bug by editing permissions during role creation and adding permissions overrides
 - Fixed Sage Witch emoji reaction bug
+- Added custom server terms and conditions implementation
+- Updated 'User Joins' sequence diagram, and updated class diagram
 ### Lin Li
 - Created !createrole command which allows individual servers to have roles outside of the default roles that come with every server
 - Refactored RoleAssignment class to allow for custom roles
