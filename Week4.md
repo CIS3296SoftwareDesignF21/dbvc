@@ -27,3 +27,4 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Added Clear Command. (Clear message use: !clear)
 - Added Message-clear-report Channel to get clear report.
 - Update drawio (Add clear command)
+- Submit the URL to Canvas
