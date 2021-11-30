@@ -19,6 +19,7 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Updated project board and assigned tasks to members
 - Contributed to PowerPoint presentation for final presentation
 - Updated RoleAssignment sequence diagram
+- Updated DBVC class diagram
 - Updated Week4.md with contributions
 ### Chenxuan
 - Edit week4.md with contributions
