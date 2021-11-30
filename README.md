@@ -1,5 +1,5 @@
 # Project Description
-The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members.
+The Discord Bot for Virtual Coven (DBVC) is a JavaScript and Java-based Discord bot that will be used in the management of Discord servers related to a virtual coven (i.e. groups interested in witchcraft). The goal of the bot is to help with user initiation into the server, as well as moderation and notification of users of important dates (such as lunar events) that may be important or noteworthy, as well as helping to monitor some channels to ensure a safe community place for all members. The project is written in Java using the JDA API to utilize the Discord API.
 
 Project Members: Anna Minasyan, Rachel Lazzaro, Lin Li Oechsle, and Chenxuan Sun
 
@@ -13,10 +13,21 @@ In order to build and run the program own machine, you first need to create a Di
 6. Download the most recent release from the tab in the releases section of this repository. 
 7. In the same folder as the downloaded release, create a file called "config.properties"
 8. Add 'token' variable to config.properties file like so: ```token=YOURSECRETTOKENHERE```, the secret token can be found on the bot page under settings (click reveal token).
-9. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
+9. After adding the 'token' variable, add called 'conditions' like so: ```conditions=SERVER TERMS AND CONDITIONS: \```. Feel free to use the template below as terms and conditions for your server: 
+```
+conditions=SERVER TERMS AND CONDITIONS: \
+No inappropriate or offensive nicknames, profile pictures, or messages. \
+No inviting unofficial bots. No illegal content, harassment, or sexually explicit content. \
+No publishing of personal information, no trolling, or spamming. \
+Moderators and the Luna Bot reserve the right to limit your roles, interactions, and messaging capabilities. \
+Be nice and have fun! \
+```
+If you choose to write your own server terms and conditions, be sure to include ``` \``` at the end of each line in order to include all lines in the ```conditions``` property.
+10. Create a new file called ```custom_roles.txt```. Place both the ```config.properties``` and ```custom_roles.txt``` files in the same directory as the downloaded release.
+11. In the command line, execute ```java -jar "absolute_path\RELEASENAME.jar"```
 
 # Build Instructions
-In order to build the executable release, follow steps 1-5 in the above installation instructions to create the bot application and token. Do not download the release in step 6. Move to step 7 and 8 to create the ```config.properties``` file. Next, download the repository onto your local machine. Navigate to the ```\dbvc\source_code``` folder in your command line. In the command line, execute ```gradlew shadowJar``` (Windows) or ```./gradlew shadowJar``` (Linux/Mac). The executable jar file has now been created in the ```\dbvc\source_code\build\libs\``` folder, titled '```dbvc-1-all.jar```'. Place the ```config.properties``` file generated with your token in this folder, and navigate in the command line to this folder. To run the .jar file, enter ```java -jar dbvc-1-all.jar```. The Java program is now running, and the bot is active on the server where you can now interact with it.
+In order to build the executable release, follow steps 1-5 in the above installation instructions to create the bot application and token. Do not download the release in step 6. Follow steps 7-10 to create the ```config.properties``` file with the token, server conditions, as well as the ```custom_roles.txt``` file. Next, download the repository onto your local machine. Navigate to the ```\dbvc\source_code``` folder in your command line. In the command line, execute ```gradlew shadowJar``` (Windows) or ```./gradlew shadowJar``` (Linux/Mac). The executable jar file has now been created in the ```\dbvc\source_code\build\libs\``` folder, titled '```dbvc-1-all.jar```'. Place the ```config.properties``` file generated with your token in this folder, and navigate in the command line to this folder. To run the .jar file, enter ```java -jar dbvc-1-all.jar```. The Java program is now running, and the bot is active on the server where you can now interact with it.
 
 # Project Proposal
 For this project, we would like to create a Discord Bot that will manage and moderate server that will serve as a Virtual Coven to the community of people that wish to participate in it. This bot would have multiple functionalities that occur at specified points of time, either based on the calendar date/time or server events such as a new member joining. One of the functionalities would be to lead a new member through a questionnaire/assessment that would decide which channels of the server they have access to as well as any roles that they should have assigned to them (ranging from pronouns, to whether they are pagan or a baby witch, etc.). Additionally, this bot would announce any current events or holidays that are important to the community, such as moon phases and pagan/wiccan holidays. Lastly, the bot will be able to monitor the chat on all or most channels to ensure that the community remains a safe and comfortable place for all members.
