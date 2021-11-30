@@ -16,14 +16,23 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DBVC extends ListenerAdapter {
+
     static RoleAssignment roleAssign = new RoleAssignment();
-    public static void main(String[] args) throws LoginException, IOException {
+
+    String conditions;
+    DBVC(String a){
+        conditions = a;
+    }
+  
+  public static void main(String[] args) throws LoginException, IOException {
         ReadConfig myConfig = new ReadConfig();
         String token = myConfig.getToken();
+        String conditions = myConfig.getConditions();
 
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
-        jda.addEventListener(new DBVC());
+
+        jda.addEventListener(new DBVC(conditions));
         jda.addEventListener(roleAssign);
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
@@ -36,7 +45,7 @@ public class DBVC extends ListenerAdapter {
             g.createRole()
                     .setName("Admin")
                     .setColor(new Color(153, 0,0))
-                    .setPermissions(8L)
+                    .setPermissions(Permission.ADMINISTRATOR)
                     .setHoisted(true)
                     .complete();
         }
@@ -229,30 +238,92 @@ public class DBVC extends ListenerAdapter {
         }
 
         // set the default permissions to such that no one can do anything
-        g.getRolesByName("@everyone", true).get(0).getManager().setPermissions(0L).complete();
+        g.getRolesByName("@everyone", true).get(0).getManager()
+                .setPermissions(0L)
+                .complete();
+
+        long newID = g.getRolesByName("New Member", true).get(0).getIdLong();
+        long unauthID = g.getRolesByName("unauth", true).get(0).getIdLong();
+        long sageID = g.getRolesByName("Sage Witch", true).get(0).getIdLong();
+        long babyID = g.getRolesByName("Baby Witch", true).get(0).getIdLong();
+        long guestID = g.getRolesByName("Guest", true).get(0).getIdLong();
+        long everyoneID = g.getRolesByName("@everyone", true).get(0).getIdLong();
+        EnumSet<Permission> allow, deny;
 
         // Create categories for text channels
         if(g.getCategoriesByName("general text channels",true).isEmpty()){
+            deny = EnumSet.of(Permission.MESSAGE_WRITE);
+            EnumSet<Permission> denyAuth = EnumSet.of(Permission.VIEW_CHANNEL);
+            allow = EnumSet.of(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY, Permission.MESSAGE_ADD_REACTION);
             g.createCategory("general text channels").complete();
+
+            g.createTextChannel("welcome", g.getCategoriesByName("general text channels", true).get(0))
+                    .addRolePermissionOverride(newID, allow, null)
+                    .addRolePermissionOverride(unauthID, allow, null)
+                    .addRolePermissionOverride(guestID, allow, null)
+                    .addRolePermissionOverride(babyID, null, deny)
+                    .addRolePermissionOverride(sageID, null, deny)
+                    .complete();
+
+            g.createTextChannel("roles", g.getCategoriesByName("general text channels", true).get(0))
+                    .addRolePermissionOverride(sageID, null, deny)
+                    .addRolePermissionOverride(babyID, null, deny)
+                    .addRolePermissionOverride(guestID, allow, null)
+                    .addRolePermissionOverride(newID, null, denyAuth)
+                    //.addRolePermissionOverride(everyoneID, allow, null)
+                    .complete();
+            g.createTextChannel("general-chat", g.getCategoriesByName("general text channels", true).get(0))
+                    .complete();
+            g.createTextChannel("bot-commands", g.getCategoriesByName("general text channels", true).get(0))
+                    .complete();
+
+            String welcomeMsg = "Welcome to the server! Before you get access, you need to agree to the terms and conditions of this server."+
+                    " Please react with the \u270D emoji to acknowledge the server terms and conditions. After you acknowledge terms and " +
+                    "conditions and have been a member of the server for at least 10 minutes, you will gain access to the rest of the server! " +
+                    "If you remove your authorization reaction from this message, you will no longer have access to the server contents.";
+            g.getTextChannelsByName("welcome", true).get(0).sendMessage(welcomeMsg).queue();
+            g.getTextChannelsByName("welcome", true).get(0).sendMessage(conditions).queue();
+
+            String mainRoles = "Main Role:\n"+"Sage Witch - \uD83D\uDD2E \n" +"Baby Witch - \uD83E\uDD8B \n" + "Guest - \uD83C\uDF37 \n";
+            String pronouns = "Pronouns:\n"+ "She/her - \uD83C\uDF4E \n" + "He/him - \uD83C\uDF50 \n" +
+                    "They/them - \uD83C\uDF4A";
+            String astrology = "Astrological Sign:\n" +
+                    "Aries - \u2648 \n" +
+                    "Taurus - \u2649 \n" +
+                    "Gemini - \u264A \n" +
+                    "Cancer - \u264B \n" +
+                    "Leo - \u264C \n" +
+                    "Virgo - \u264D \n" +
+                    "Libra - \u264E \n" +
+                    "Scorpio - \u264F \n" +
+                    "Sagittarius - \u2650 \n" +
+                    "Capricorn - \u2651 \n" +
+                    "Aquarius - \u2652 \n" +
+                    "Pisces - \u2653";
+
+            g.getTextChannelsByName("roles", true).get(0).sendMessage(mainRoles).queue();
+            g.getTextChannelsByName("roles", true).get(0).sendMessage(pronouns).queue();
+            g.getTextChannelsByName("roles", true).get(0).sendMessage(astrology).queue();
         }
 
-        long guestID = g.getRolesByName("Guest", true).get(0).getIdLong();
-        EnumSet<Permission> allow = EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_WRITE, Permission.MESSAGE_READ);
         if(g.getCategoriesByName("guest channels", true).isEmpty()){
+            allow = EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_WRITE, Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY);
             g.createCategory("guest channels")
                     .addRolePermissionOverride(guestID, allow, null).complete();
-            g.createTextChannel("questions")
-                    .setName("questions")
-                    .setParent(g.getCategoriesByName("guest channels", true).get(0))
+            g.createTextChannel("general", g.getCategoriesByName("guest channels", true).get(0))
+                    .complete();
+            g.createTextChannel("questions", g.getCategoriesByName("guest channels", true).get(0))
                     .complete();
         }
 
         if(g.getCategoriesByName("baby witch channels", true).isEmpty()){
+            deny = EnumSet.of(Permission.VIEW_CHANNEL);
             g.createCategory("baby witch channels")
+                    .addRolePermissionOverride(guestID, null, deny)
                     .complete();
-            g.createTextChannel("questions")
-                    .setName("questions")
-                    .setParent(g.getCategoriesByName("baby witch channels", true).get(0))
+            g.createTextChannel("general", g.getCategoriesByName("baby witch channels", true).get(0))
+                    .complete();
+            g.createTextChannel("questions", g.getCategoriesByName("baby witch channels", true).get(0))
                     .complete();
             g.createTextChannel("all-about-paganism", g.getCategoriesByName("baby witch channels", true).get(0))
                     .complete();
@@ -261,17 +332,40 @@ public class DBVC extends ListenerAdapter {
         }
 
         if(g.getCategoriesByName("sage witch channels", true).isEmpty()){
-            g.createCategory("sage witch channels").complete();
-            g.createTextChannel("questions")
-                    .setName("questions")
-                    .setParent(g.getCategoriesByName("sage witch channels", true).get(0))
+            deny = EnumSet.of(Permission.VIEW_CHANNEL);
+            g.createCategory("sage witch channels")
+                    .addRolePermissionOverride(babyID, null, deny)
+                    .addRolePermissionOverride(guestID, null, deny)
+                    .complete();
+            g.createTextChannel("general", g.getCategoriesByName("sage witch channels", true).get(0))
+                    .complete();
+            g.createTextChannel("questions", g.getCategoriesByName("sage witch channels", true).get(0))
                     .complete();
             g.createVoiceChannel("voice chat", g.getCategoriesByName("sage witch channels", true).get(0))
                     .complete();
         }
 
-        long newID = g.getRolesByName("New Member", true).get(0).getIdLong();
-        long unauthID = g.getRolesByName("unauth", true).get(0).getIdLong();
+        if(g.getCategoriesByName("admin channels", true).isEmpty()){
+            deny = EnumSet.of(Permission.VIEW_CHANNEL);
+            g.createCategory("admin channels")
+                    .addRolePermissionOverride(babyID, null, deny)
+                    .addRolePermissionOverride(sageID, null, deny)
+                    .addRolePermissionOverride(guestID, null, deny)
+                    .complete();
+            g.createTextChannel("general", g.getCategoriesByName("admin channels", true).get(0))
+                    .complete();
+            g.createTextChannel("role-log", g.getCategoriesByName("admin channels", true).get(0))
+                    .complete();
+            g.createTextChannel("naughty-list", g.getCategoriesByName("admin channels", true).get(0))
+                    .complete();
+            g.createTextChannel("message-clear-report", g.getCategoriesByName("admin channels", true).get(0))
+                    .complete();
+            g.createVoiceChannel("voice chat", g.getCategoriesByName("admin channels", true).get(0))
+                    .complete();
+        }
+
+
+        /**
         allow = EnumSet.of(Permission.MESSAGE_ADD_REACTION, Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY);
         if(g.getTextChannelsByName("welcome", true).isEmpty()){
             g.createTextChannel("welcome")
@@ -282,17 +376,14 @@ public class DBVC extends ListenerAdapter {
                     .complete();
         }
 
-        String welcomeMsg = "Welcome to the server! Before you get access, you need to agree to the terms and conditions of this server."+
-                " Please react with the \u270D emoji to receive acknowledge the server terms and conditions. After you acknowledge terms and " +
-                "conditions and have been a member of the server for at least 10 minutes, you will gain access to the rest of the server. ";
-        g.getTextChannelsByName("welcome", true).get(0).sendMessage(welcomeMsg).queue();
-
+        /**
         if(g.getTextChannelsByName("general", true).isEmpty()){
             g.createTextChannel("general")
                     .setName("general")
                     .setParent(g.getCategoriesByName("general text channels", true).get(0))
                     .complete();
         }
+
 
         if(g.getTextChannelsByName("roles", true).isEmpty()){
             g.createTextChannel("roles")
@@ -321,12 +412,14 @@ public class DBVC extends ListenerAdapter {
         g.getTextChannelsByName("roles", true).get(0).sendMessage(pronouns).queue();
         g.getTextChannelsByName("roles", true).get(0).sendMessage(astrology).queue();
 
+
         if(g.getTextChannelsByName("bot-commands", true).isEmpty()){
             g.createTextChannel("bot-commands")
                     .setName("bot-commands")
                     .setParent(g.getCategoriesByName("general text channels", true).get(0))
                     .complete();
         }
+         **/
     }
 
     @Override
@@ -335,8 +428,180 @@ public class DBVC extends ListenerAdapter {
         Message messageObj = event.getMessage();
         String[] commandInput = message.split(" ");
         Guild guild = event.getGuild();
+
+        if(event.getAuthor().isBot()){
+            return;
+        }
         System.out.println("Received a message from " + event.getAuthor().getName() +
                 ": " + event.getMessage().getContentDisplay());
+
+        String reason = null;
+        Member member = null;
+        Role role = null;
+        int days = -1;
+
+        if(event.getMember().isOwner()){
+            if(message.equals("!start")){
+                initialize(guild);
+            }
+        }
+
+        if(event.getMember().hasPermission(Permission.ADMINISTRATOR)){
+            message = event.getMessage().getContentDisplay();
+            System.out.println("message: "+ message);
+            if(message.lastIndexOf('-') != -1){
+                reason = message.substring(message.indexOf('-'));
+            }
+
+            String s = message.replaceAll("[[^0-9]+]", " ").trim().replaceAll(" +", " ");
+            if(!s.equals("")){
+                days = Integer.parseInt(s);
+            }
+            message = message.split("\\s+")[0];
+
+            if(event.getMessage().getMentionedMembers().size() != 0){
+                member = event.getMessage().getMentionedMembers().get(0);
+            }
+
+            if(event.getMessage().getMentionedRoles().size() != 0){
+                role = event.getMessage().getMentionedRoles().get(0);
+            }
+
+            TextChannel roleLog = guild.getTextChannelsByName("role-log", true).get(0);
+            TextChannel naughtyLog = guild.getTextChannelsByName("naughty-list", true).get(0);
+
+            switch(message){
+                case "!promote":
+                    if(member == null ){
+                        roleLog.sendMessage("Usage error: !promote @USER").queue();
+                    } else {
+                        guild.addRoleToMember(member.getIdLong(), guild.getRolesByName("admin", true).get(0)).queue();
+                        roleLog.sendMessage("Added " + member.getAsMention() + " to admin role.").queue();
+                        System.out.println("Added user to admin role");
+                    }
+                    break;
+                case "!demote":
+                    if(member == null ){
+                        roleLog.sendMessage("Usage error: !demote @USER").queue();
+                    } else {
+                        guild.removeRoleFromMember(member.getIdLong(), guild.getRolesByName("admin", true).get(0)).queue();
+                        roleLog.sendMessage("Removed " + member.getAsMention() + " from admin role.").queue();
+                        System.out.println("Removed user to admin role");
+                    }
+                    break;
+                case "!kick":
+                    if(member == null || reason == null){
+                        naughtyLog.sendMessage("Usage error: !kick @USER -REASON").queue();
+                    } else {
+                        guild.kick(member, reason).queue();
+                        String finalReason = reason;
+                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                                privateMessage.sendMessage("You have been kicked from the server for this reason " + finalReason)).queue();
+                        naughtyLog.sendMessage("Kicked " + member.getAsMention() + " for this reason " + reason).queue();
+                        System.out.println("Kicked user: " + member.getAsMention());
+                    }
+                    break;
+                case "!mute":
+                    if(member == null){
+                        naughtyLog.sendMessage("Usage error: !mute @USER").queue();
+                    } else {
+                        guild.mute(member, true).queue();
+                        naughtyLog.sendMessage("Muted " + member.getAsMention()).queue();
+                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                                privateMessage.sendMessage("You have been muted")).queue();
+                    }
+                    break;
+                case "!unmute":
+                    if(member == null){
+                        naughtyLog.sendMessage("Usage error: !unmute @USER").queue();
+                    } else {
+                        guild.mute(member, false).queue();
+                        naughtyLog.sendMessage("Unmuted " + member.getAsMention()).queue();
+                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                                privateMessage.sendMessage("You have been unmuted")).queue();
+                    }
+                    break;
+                case "!ban":
+                    if(member == null || reason == null || days == -1){
+                        naughtyLog.sendMessage("Usage error: !ban @USER -REASON -NUM_DAY(S)").queue();
+                    } else {
+                        guild.ban(member, days).queue();
+                        String finalReason = reason;
+                        int finalDays = days;
+
+                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                                privateMessage.sendMessage("You have been banned from the server for " + finalDays + "days " +
+                                        "for this reason " + finalReason)).queue();
+                        naughtyLog.sendMessage(event.getAuthor().getAsMention() + " banned " + member.getAsMention() +
+                                " for " + days + " days for this reason " + reason).queue();
+                        System.out.println("Banned user: " + member.getAsMention());
+                    }
+                    break;
+                case "!unban":
+                    if(member == null){
+                        naughtyLog.sendMessage("Usage error: !unban @USER -REASON -NUM_DAY(S)").queue();
+                    } else {
+                        guild.unban(member.getUser()).queue();
+                        member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                                privateMessage.sendMessage("You have been unbanned from the server")).queue();
+                        naughtyLog.sendMessage(event.getAuthor().getAsMention() + " unbanned " + member.getAsMention()).queue();
+                        System.out.println("Unbanned user: " + member.getAsMention());
+                    }
+                    break;
+                case "!removeRole":
+                    if(member == null || role == null){
+                        roleLog.sendMessage("Usage error: !removeRole @ROLE @USER").queue();
+                    } else {
+                        guild.removeRoleFromMember(member.getIdLong(), role).queue();
+                        roleLog.sendMessage("Removed " + member.getAsMention() + " from " + role.getAsMention()).queue();
+                        System.out.println("Removed " + member.getAsMention() + " from " + role.getAsMention());
+
+                        //Role finalRole = role;
+                        //member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                         //       privateMessage.sendMessage("You have been removed from " + finalRole.getAsMention() + " role by " +
+                        //                event.getMember().getAsMention())).queue();
+                    }
+                    break;
+                case "!addRole":
+                    if(member == null || role == null){
+                        naughtyLog.sendMessage("Usage error: !addRole @ROLE @USER").queue();
+                    } else {
+                        guild.addRoleToMember(member.getIdLong(), role).queue();
+                        roleLog.sendMessage("Added " + member.getAsMention() + " to " + role.getAsMention()).queue();
+                        System.out.println("Added " + member.getAsMention() + " to " + role.getAsMention());
+                        //Role finalRole = role;
+                        //member.getUser().openPrivateChannel().flatMap(privateMessage ->
+                        //        privateMessage.sendMessage("You have been added to " + finalRole.getAsMention() + " role by " +
+                        //               event.getMember().getAsMention())).queue();
+                    }
+                    break;
+                case "!deleteChannels":
+                    List<Category> allCategories = guild.getCategories();
+                    for(Category c : allCategories){
+                        c.delete().queue();
+                    }
+                    List<TextChannel> allTextChannels = guild.getTextChannels();
+                    for(TextChannel t : allTextChannels){
+                        if(!t.getName().equalsIgnoreCase("general-chat")){
+                            t.delete().queue();
+                        }
+                    }
+                    List<VoiceChannel> allVoiceChannels = guild.getVoiceChannels();
+                    for(VoiceChannel v : allVoiceChannels){
+                        v.delete().queue();
+                    }
+                    break;
+                case "!deleteRoles":
+                    List<Role> allRoles = guild.getRoles();
+                    for(Role r : allRoles){
+                        if(!r.getName().equalsIgnoreCase("DBVC") && !r.getName().equalsIgnoreCase("admin")){
+                            r.delete().queue();
+                        }
+                    }
+                default:
+                    break;
+            }
+        }
 
         switch (message) {
             case "!ping":
@@ -358,11 +623,24 @@ public class DBVC extends ListenerAdapter {
 
                 break;
             case "!help":
-                event.getChannel().sendMessage("Oh no, you seem to be lost! Here are some commands you can try: ").queue();
-                event.getChannel().sendMessage("!online - this will tell you the number of users currently online.").queue();
-                event.getChannel().sendMessage("Looking for role assignments? Head to the ROLES text channel or try the !roles command.").queue();
-                event.getChannel().sendMessage("Need to update your permissions? DM " + event.getGuild().getOwner().getAsMention() +
-                        " in order to update your permissions or use the ROLES text channel.").queue();
+                TextChannel rolesChannel = guild.getTextChannelsByName("roles", true).get(0);
+
+                event.getChannel().sendMessage("Here are all the commands available for you to try: ").queue();
+                event.getChannel().sendMessage("!online - this will tell you the number of users currently online").queue();
+                event.getChannel().sendMessage("!roles - list all available roles for server and your assigned roles").queue();
+                event.getChannel().sendMessage("ADMIN ONLY COMMANDS\n"+
+                        "!promote @USER - give administrator privileges\n!demote @USER - remove administrator privileges\n"+
+                        "!kick @USER -REASON - remove user from server due to reason\n"+
+                        "!ban @USER -REASON -NUMDAY(S) - ban user from server due to reason for numday(s)\n"+
+                        "!unban @USER - remove user ban from server\n" +
+                        "!mute @USER - mute user on voice channels\n!unmute @USER - unmute user on voice channels\n"+
+                        "!addRole @ROLE @USER - manually add role to user\n!removeRole @ROLE @USER - manually remove role from user\n"+
+                        "!deleteRoles - manually delete all roles from server\n"+
+                        "!deleteChannels - manually delete all roles from server\n").queue();
+                event.getChannel().sendMessage("SERVER OWNER ONLY COMMANDS\n"+
+                        "!start - initialize empty server with preset roles, channels, and permissions").queue();
+                event.getChannel().sendMessage("Looking for role assignments? Head to " + rolesChannel.getAsMention() + " to update roles.").queue();
+                event.getChannel().sendMessage("Need manual permissions help or have concerns? DM an admin!").queue();
                 break;
             case "!online":
                 if (event.getMessage().getContentRaw().equals("!online")) {
@@ -394,9 +672,6 @@ public class DBVC extends ListenerAdapter {
 
                     event.getChannel().sendMessage(event.getAuthor().getAsMention() + " has been assigned these roles: " + allRoles).queue();
                 }
-                break;
-            case "!start":
-                initialize(guild);
                 break;
             default:
                 break;

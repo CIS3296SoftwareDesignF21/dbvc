@@ -116,7 +116,7 @@ public class RoleAssignment extends ListenerAdapter {
             } else if (reaction.equals("RE:U+1f337")) { // guest
                 g.addRoleToMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Guest"))).queue();
                 System.out.println("Added user to guest role");
-            } else if (reaction.equals("RE:U+1F52E")) { // guest
+            } else if (reaction.equals("RE:U+1f52e")) { // sage witch
                 g.addRoleToMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Sage Witch"))).queue();
             } else if (reaction.equals("RE:U+1f34e")) { // she/her
                 g.addRoleToMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "she/her"))).queue();
@@ -199,7 +199,7 @@ public class RoleAssignment extends ListenerAdapter {
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Baby Witch"))).queue();
             } else if (reaction.equals("RE:U+1f337")) { // guest
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Guest"))).queue();
-            } else if (reaction.equals("RE:U+1F52E")) { // guest
+            } else if (reaction.equals("RE:U+1f52e")) { // sage witch
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Sage Witch"))).queue();
             } else if (reaction.equals("RE:U+1f34e")) { // she/her
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "she/her"))).queue();
