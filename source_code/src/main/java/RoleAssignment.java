@@ -1,9 +1,12 @@
-import java.util.HashMap;
-import java.util.List;
+import java.awt.Color;
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
@@ -12,11 +15,12 @@ public class RoleAssignment extends ListenerAdapter {
     private long rolesChannelID;
     private long welcomeID;
     private HashMap<String, Long> roleIdPairs = new HashMap<>();
-    //private JDA jda;
+    private final static String FILE = "src/main/java/custom_roles.txt";
+    private HashMap<String, Long> customRolesMap = new HashMap<String, Long>();
 
-    //public RoleAssignment(JDA jda) {
-    //    this.jda = jda;
-    //}
+    public RoleAssignment() {
+        createCustomRolesMap();
+    }
 
     public HashMap<String, Long> createRolesMap(Guild g) {
         HashMap<String, Long> map = new HashMap<>();
@@ -31,6 +35,29 @@ public class RoleAssignment extends ListenerAdapter {
         // }
 
         return map;
+    }
+
+    public void createCustomRolesMap() {
+        // initialize custom roles map
+
+        File file = new File(FILE);
+
+        try {
+            BufferedReader buff = new BufferedReader(new FileReader(file));
+            String line;
+            
+            while ((line = buff.readLine()) != null) {
+                String[] keyValuePairs = line.split(" ");
+    
+                // put(emojiInUnicodeFormat, roleIdInLongFormat)
+                customRolesMap.put(keyValuePairs[0], Long.parseLong(keyValuePairs[1]));
+            }
+    
+            buff.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public long getRoleId(HashMap<String, Long> map, String roleName) {
@@ -51,6 +78,23 @@ public class RoleAssignment extends ListenerAdapter {
 
     public long getWelcomeID(Guild g){
         return g.getTextChannelsByName("welcome", false).get(0).getIdLong();
+    }
+
+    public String toUnicode (String emojiAsString) {
+        String unicode = "RE:U+";
+        Stream<String> stream = emojiAsString.codePoints().mapToObj(Integer::toHexString);
+
+        //emojiAsString.codePoints().mapToObj(Integer::toHexString).forEach(System.out::println);
+
+        List<String> list = stream.collect(Collectors.toList());
+        //System.out.println("String before return: " + list.toString());
+
+        return unicode+list.get(0).toString();
+    }
+
+    public long getRoleIdByEmoji(String emojiUnicode) {
+
+        return customRolesMap.get(emojiUnicode);
     }
 
     // when a user reacts to a message in the roles channel, they are added to the associated role
@@ -122,6 +166,12 @@ public class RoleAssignment extends ListenerAdapter {
             } else if (reaction.equals("RE:U+270d")) { // pisces
                 g.addRoleToMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
                 System.out.println("Added user to guest role");
+            } else { // adding a custom role
+                //reaction
+                Role role = g.getRoleById(getRoleIdByEmoji(reaction));
+                System.out.println("Adding custom role to user " + event.getUser().getName() + ": " + role);
+                g.addRoleToMember(event.getUserId(), role).queue();
+
             }
         } else if (event.getChannel().getIdLong() == welcomeID){
             // removing reaction means that they should no longer be allowed access to the server
@@ -181,6 +231,11 @@ public class RoleAssignment extends ListenerAdapter {
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Aquarius"))).queue();
             } else if (reaction.equals("RE:U+2653")) { // pisces
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
+            } else { // removing a custom role
+                Role role = g.getRoleById(getRoleIdByEmoji(reaction));
+                //System.out.println("Removing custom role from user " + event.getUser().getName() + ": " + role.toString());
+                if(role!=null)
+                    g.removeRoleFromMember(event.getUserId(), role).queue();
             }
         } else if (event.getChannel().getIdLong() == welcomeID){
             // removing reaction means that they should no longer be allowed access to the server
@@ -193,4 +248,76 @@ public class RoleAssignment extends ListenerAdapter {
             }
         }
     }
+
+    // custom roles reaction removal
+    public void onMessageReactionRemove2 (MessageReactionRemoveEvent event) {
+        Guild g = event.getGuild();
+        System.out.println("Entered onmessagereactionremove2");
+
+        String reaction = event.getReactionEmote().toString();
+        Role role = g.getRoleById(getRoleIdByEmoji(reaction));
+        System.out.println("Removing custom role from user " + event.getUser().getName() + ": " + role.toString());
+        if(role!=null)
+            g.removeRoleFromMember(event.getUserId(), role).queue();
+    }
+
+    public void writeNewRoletoFile (String emojiUnicode, long roleId) {
+        File file = new File(FILE);
+        BufferedWriter bf = null;
+        
+        try {
+            bf = new BufferedWriter(new FileWriter(file, true));
+            bf.append(emojiUnicode + " " + roleId);
+            bf.newLine();
+            /*
+            for (Map.Entry<String, Long> entry : map.entrySet()) {
+                bf.write(entry.getKey() + " "
+                        + entry.getValue());
+
+                bf.newLine();
+            }*/
+            bf.flush();
+            bf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // creates new role with basic permissions
+    public void createRoleCommand(Guild g, String[] commandInput, Message messageObj) {
+        String roleName = commandInput[1];
+        String emojiUnicode = toUnicode(commandInput[2]);
+        System.out.println("Emoji codepoints: " + emojiUnicode);
+        
+        try {
+            // create the role
+            if(g.getRolesByName(roleName, true).isEmpty() && !customRolesMap.containsKey(emojiUnicode)){
+                g.createRole()
+                        .setName(roleName)
+                        .setColor(new Color(221, 238,221))
+                        .setPermissions(0L)
+                        .setHoisted(false)
+                        .complete();
+
+                System.out.println("Created role");
+
+                // add role to customRolesMap
+                customRolesMap.put(emojiUnicode, g.getRolesByName(roleName, false).get(0).getIdLong());
+
+                // add role mapping to the file
+                writeNewRoletoFile(emojiUnicode, g.getRolesByName(roleName, false).get(0).getIdLong());
+                System.out.println("Emoji reaction to be added to " + roleName + ": " + emojiUnicode);
+
+                // add role reaction information to roles channel
+                String output = roleName + " - " + commandInput[2];
+                g.getTextChannelsByName("roles", false).get(0).sendMessage(output).queue();
+            } else {
+                System.out.println("A role with this name or reaction emoji already exists and could not be created.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: the role could not be created because the command did not use the correct format");
+        }
+
+    }
+
 }

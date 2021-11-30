@@ -1,7 +1,10 @@
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -13,20 +16,24 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DBVC extends ListenerAdapter {
+
+    static RoleAssignment roleAssign = new RoleAssignment();
+
     String conditions;
     DBVC(String a){
         conditions = a;
     }
-
-    public static void main(String[] args) throws LoginException, IOException {
+  
+  public static void main(String[] args) throws LoginException, IOException {
         ReadConfig myConfig = new ReadConfig();
         String token = myConfig.getToken();
         String conditions = myConfig.getConditions();
 
         JDA jda = JDABuilder.createDefault(token).build();
         JDA jda2 = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS).build();
+
         jda.addEventListener(new DBVC(conditions));
-        jda.addEventListener(new RoleAssignment());
+        jda.addEventListener(roleAssign);
         //try without commandClientBuilder commandClientBuilder.build(),
         jda.addEventListener(new CurseWordFilter());
         jda2.addEventListener(new GuildInit());
@@ -418,6 +425,8 @@ public class DBVC extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event){
         String message = event.getMessage().getContentRaw();
+        Message messageObj = event.getMessage();
+        String[] commandInput = message.split(" ");
         Guild guild = event.getGuild();
 
         if(event.getAuthor().isBot()){
@@ -666,6 +675,12 @@ public class DBVC extends ListenerAdapter {
                 break;
             default:
                 break;
+        }
+
+        // checking for !createrole command
+        if (commandInput[0].equals("!createrole")) {
+            System.out.println(event.getAuthor().getName() + " is trying to create a new role: " + event.getMessage().getContentDisplay());
+            roleAssign.createRoleCommand(guild, commandInput, messageObj);
         }
     }
 }
