@@ -1,13 +1,13 @@
-import java.util.HashMap;
-import java.util.List;
+import java.awt.Color;
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
-<<<<<<< Updated upstream
-import net.dv8tion.jda.api.JDA;
-=======
 import net.dv8tion.jda.api.entities.TextChannel;
->>>>>>> Stashed changes
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
@@ -16,17 +16,12 @@ public class RoleAssignment extends ListenerAdapter {
     private long rolesChannelID;
     private long welcomeID;
     private HashMap<String, Long> roleIdPairs = new HashMap<>();
-<<<<<<< Updated upstream
-    //private JDA jda;
-=======
     private final static String FILE = "src/main/java/custom_roles.txt";
     private HashMap<String, Long> customRolesMap = new HashMap<String, Long>();
-    FileInputStream inputStream = null;
->>>>>>> Stashed changes
 
-    //public RoleAssignment(JDA jda) {
-    //    this.jda = jda;
-    //}
+    public RoleAssignment() {
+        createCustomRolesMap();
+    }
 
     public HashMap<String, Long> createRolesMap(Guild g) {
         HashMap<String, Long> map = new HashMap<>();
@@ -43,19 +38,13 @@ public class RoleAssignment extends ListenerAdapter {
         return map;
     }
 
-<<<<<<< Updated upstream
-=======
-    public void createCustomRolesMap() throws FileNotFoundException {
+    public void createCustomRolesMap() {
         // initialize custom roles map
-        //File wd = new File(".");
-        //log.debug("working dir: " + wd.getAbsolutePath());
 
-        //File file = new File(FILE);
-        FileReader r = new FileReader(FILE);
+        File file = new File(FILE);
 
         try {
-            inputStream = new FileInputStream(FILE);
-            BufferedReader buff = new BufferedReader(new FileReader(inputStream));
+            BufferedReader buff = new BufferedReader(new FileReader(file));
             String line;
             
             while ((line = buff.readLine()) != null) {
@@ -72,7 +61,6 @@ public class RoleAssignment extends ListenerAdapter {
 
     }
 
->>>>>>> Stashed changes
     public long getRoleId(HashMap<String, Long> map, String roleName) {
         //System.out.println("ENTERED GETROLEID FUNCTION");
 
@@ -91,6 +79,23 @@ public class RoleAssignment extends ListenerAdapter {
 
     public long getWelcomeID(Guild g){
         return g.getTextChannelsByName("welcome", false).get(0).getIdLong();
+    }
+
+    public String toUnicode (String emojiAsString) {
+        String unicode = "RE:U+";
+        Stream<String> stream = emojiAsString.codePoints().mapToObj(Integer::toHexString);
+
+        //emojiAsString.codePoints().mapToObj(Integer::toHexString).forEach(System.out::println);
+
+        List<String> list = stream.collect(Collectors.toList());
+        //System.out.println("String before return: " + list.toString());
+
+        return unicode+list.get(0).toString();
+    }
+
+    public long getRoleIdByEmoji(String emojiUnicode) {
+
+        return customRolesMap.get(emojiUnicode);
     }
 
     // when a user reacts to a message in the roles channel, they are added to the associated role
@@ -162,6 +167,12 @@ public class RoleAssignment extends ListenerAdapter {
             } else if (reaction.equals("RE:U+270d")) { // pisces
                 g.addRoleToMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
                 System.out.println("Added user to guest role");
+            } else { // adding a custom role
+                //reaction
+                Role role = g.getRoleById(getRoleIdByEmoji(reaction));
+                System.out.println("Adding custom role to user " + event.getUser().getName() + ": " + role);
+                g.addRoleToMember(event.getUserId(), role).queue();
+
             }
         } else if (event.getChannel().getIdLong() == welcomeID){
             // removing reaction means that they should no longer be allowed access to the server
@@ -221,6 +232,11 @@ public class RoleAssignment extends ListenerAdapter {
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Aquarius"))).queue();
             } else if (reaction.equals("RE:U+2653")) { // pisces
                 g.removeRoleFromMember(event.getUserId(), g.getRoleById(getRoleId(roleIdPairs, "Pisces"))).queue();
+            } else { // removing a custom role
+                Role role = g.getRoleById(getRoleIdByEmoji(reaction));
+                //System.out.println("Removing custom role from user " + event.getUser().getName() + ": " + role.toString());
+                if(role!=null)
+                    g.removeRoleFromMember(event.getUserId(), role).queue();
             }
         } else if (event.getChannel().getIdLong() == welcomeID){
             // removing reaction means that they should no longer be allowed access to the server
@@ -233,8 +249,6 @@ public class RoleAssignment extends ListenerAdapter {
             }
         }
     }
-<<<<<<< Updated upstream
-=======
 
     // custom roles reaction removal
     public void onMessageReactionRemove2 (MessageReactionRemoveEvent event) {
@@ -309,6 +323,4 @@ public class RoleAssignment extends ListenerAdapter {
         }
 
     }
-
->>>>>>> Stashed changes
 }
