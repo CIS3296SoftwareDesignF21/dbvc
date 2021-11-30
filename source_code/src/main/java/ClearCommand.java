@@ -1,4 +1,5 @@
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ClearCommand extends ListenerAdapter {
@@ -19,7 +20,7 @@ public class ClearCommand extends ListenerAdapter {
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
         String[] args = event.getMessage().getContentRaw().split(" ");
 
-        if (args[0].equalsIgnoreCase("!clear")) {
+        if (args[0].equalsIgnoreCase("!clear") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
             if(args.length<=2){
                 ErrorMessage(event.getChannel(),event.getMember());
             }else{
@@ -31,9 +32,11 @@ public class ClearCommand extends ListenerAdapter {
                     for(int i = 3;i< args.length;i++){
                         reason+= args[i]+" ";
                     }
-                    log(event.getMember(), args[2], reason,event.getGuild().getTextChannelById("914906046408056882"),texttarget);
+                    log(event.getMember(), args[2], reason,
+                            event.getGuild().getTextChannelsByName("message-clear-report", true).get(0),texttarget);
                 }else {
-                    log(event.getMember(), args[2], "",event.getGuild().getTextChannelById("914906046408056882"),texttarget);
+                    log(event.getMember(), args[2], "",
+                            event.getGuild().getTextChannelsByName("message-clear-report", true).get(0),texttarget);
                 }
             }
 
