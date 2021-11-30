@@ -3,6 +3,14 @@
 List all accomplishments from the week for each team member. Remember that **every week**, each team member should have contributed to **at least one** task of consisting of writing code and **at least one** task of writing or reviewing texts or diagrams
 
 ### Anna
+- Edit Week4 Readme
+- Plan additions to Powerpoint
+- Finish Curse World Filter and make it functional
+- Work on developing !Silence command
+- Update project board
+- Collaborate with members to decide on final sprint
+- Update Sequence diagram
+- Review Class Diagram
 ### Rachel
 - Create and share PowerPoint presentation for final presentation 
 - Create and edit Week4 Readme
