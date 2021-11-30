@@ -20,6 +20,8 @@ public class BotIn extends ListenerAdapter {
             //check if bot has permission
             if(!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT)) {
                 channel.sendMessage("I do not have permissions to join a voice channel!").queue();
+                return;
+            }
             //Set voicechannel
             VoiceChannel voiceChannel = event.getMember().getVoiceState().getChannel();
             //check user in or not in channel
