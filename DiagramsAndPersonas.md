@@ -1,5 +1,5 @@
 # UML Diagram
-![dbvc uml diagram](/ClassDiagram.png)
+![dbvc uml diagram](/ClassDiagram.drawio.png)
 # Sequence Diagrams
 ![sequence diagrams](/SequenceDiagrams.drawio.png)
 
