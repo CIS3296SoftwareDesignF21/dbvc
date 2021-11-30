@@ -15,3 +15,8 @@ List all accomplishments from the week for each team member. Remember that **eve
 - Fixed Sage Witch emoji reaction bug
 ### Lin Li
 ### Chenxuan
+- Edit week4.md with contributions
+- Edit PowerPoint presentation for final presentation
+- Added Clear Command. (Clear message use: !clear)
+- Added Message-clear-report Channel to get clear report.
+
